@@ -1,7 +1,4 @@
-typedef unsigned char byte;
-
-#define LSB1 0xfe
-#define LSB4 0xf0
+#include "bitManipulation.h"
 
 byte getBit(int position, byte value) {
   return (value >> (sizeof(value) * 8 - 1 - position)) & 0x01;

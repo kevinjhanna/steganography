@@ -62,9 +62,8 @@ int parse(int argc, const char ** argv) {
     }
 
     if(invalidArguments){
-    	return 1;
+    	return -1;
     }
-
 
     if (argc != 0) {
     	// Here we can use argc
@@ -75,4 +74,6 @@ int parse(int argc, const char ** argv) {
             // printf("argv[%d]: %s\n", i, *(argv + i));
         }
     }
+
+    return 0;
 }
