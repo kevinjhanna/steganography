@@ -1,8 +1,10 @@
-typedef unsigned char byte;
+typedef unsigned char BYTE;
 
-#define LSB1 0xfe
-#define LSB4 0xf0
+#define LSB1 0x01 // 0000 0000 0000 0001
+#define LSB4 0x0f // 0000 0000 0000 1111
 
-byte getBit(int position, byte value);
+BYTE getBit(int position, BYTE value);
 
-byte setBit(byte mask, byte value, byte replacement);
+BYTE setBits(BYTE mask, BYTE byte, BYTE replacement);
+
+void printByte(BYTE byte);

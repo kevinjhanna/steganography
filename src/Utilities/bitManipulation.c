@@ -1,15 +1,17 @@
+#include <stdio.h>
 #include "bitManipulation.h"
 
-byte getBit(int position, byte value) {
-  return (value >> (sizeof(value) * 8 - 1 - position)) & 0x01;
+BYTE getBit(int position, BYTE byte) {
+  return (byte >> (sizeof(byte) * 8 - 1 - position)) & 0x01;
 }
 
-byte setBit(byte mask, byte value, byte replacement) {
+BYTE setBits(BYTE mask, BYTE byte, BYTE replacement) {
+  return (replacement & mask) | (byte & ~mask);
+}
 
-  // Make sure that mask is the complement of replacement.
-  if ((replacement & mask) != 0) {
-    return -1;
+void printByte(BYTE byte) {
+  for (int i = 0; i < 8; i++) {
+    printf("%d", getBit(i, byte));
   }
-
-  return (value & mask) | replacement;
+  printf("\n");
 }
