@@ -1,5 +1,5 @@
 TARGET = stegowav
-LIBS = -lm
+LIBS = -lm -lssl -lcrypto
 CC = gcc
 CFLAGS = -g -Wall
 
