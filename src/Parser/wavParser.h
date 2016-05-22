@@ -5,7 +5,9 @@
 #include <string.h> // for memcmp
 #include <stdint.h> // for int16_t and int32_t
 
-typedef struct wavfile
+#include "../Utilities/bitManipulation.h"
+
+typedef struct wavHeader
 {
     char    id[4];          // should always contain "RIFF"
     int32_t totallength;    // total file length minus 8
@@ -19,6 +21,6 @@ typedef struct wavfile
     int16_t bits_per_sample;
     char    data[4];        // should always contain "data"
     int32_t bytes_in_data;
-} wavfile;
+} wavHeader;
 
-wavfile parseWav(char* filename);
+wavHeader parseWavHeader(char* filename, BYTE* parsedBuffer);

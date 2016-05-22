@@ -4,6 +4,8 @@
 *.obj
 *.elf
 
+stegowav
+
 # Precompiled Headers
 *.gch
 *.pch

@@ -10,9 +10,9 @@ int is_big_endian(void) {
     return bint.c[0]==1;
 }
 
-wavfile parseWav(char* filename) {
+wavHeader parseWavHeader(char* filename, BYTE* parsedBuffer) {
     FILE *wav = fopen(filename,"rb");
-    struct wavfile header;
+    struct wavHeader header;
 
     if ( wav == NULL ) {
         fprintf(stderr,"Can't open input file %s\n", filename);
@@ -61,28 +61,27 @@ wavfile parseWav(char* filename) {
         fprintf(stderr, " compressed" );
     }
 
-    fprintf(stderr,", channel %d", header.pcm);
-    fprintf(stderr,", freq %d", header.frequency );
-    fprintf(stderr,", %d bytes per sec", header.bytes_per_second );
-    fprintf(stderr,", %d bytes by capture", header.bytes_by_capture );
-    fprintf(stderr,", %d bits per sample", header.bytes_by_capture );
+    fprintf(stderr,", channel %d\n", header.pcm);
+    fprintf(stderr,"size %d bytes\n", header.totallength);
+    fprintf(stderr,"freq %d\n", header.frequency );
+    fprintf(stderr,"%d bytes per sec\n", header.bytes_per_second );
+    fprintf(stderr,"%d bytes by capture\n", header.bytes_by_capture );
+    fprintf(stderr,"%d bits per sample\n", header.bytes_by_capture );
     fprintf(stderr,"\n" );
 
     if ( memcmp( header.data, "data", 4) != 0 ) {
         fprintf(stderr,"ERROR: Prrroblem?\n");
         exit(1);
     }
+
     fprintf(stderr,"wav format\n");
 
-    // read data
-    long long sum=0;
-    int16_t value;
-    int i=0;
-    fprintf(stderr,"---\n", value);
-    while( fread(&value,sizeof(value),1,wav) ) {
-        if (value<0) { value=-value; }
-        sum += value;
-    }
-    printf("%lld\n",sum);
+    BYTE* value = malloc(header.totallength * sizeof(BYTE));
+
+    // This could fail, but meh.
+    fread(value, sizeof(BYTE), header.totallength, wav);
+
+    memcpy(parsedBuffer, value, header.totallength * sizeof(BYTE));
+
     return header;
 }
