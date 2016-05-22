@@ -76,12 +76,15 @@ wavHeader parseWavHeader(char* filename, BYTE* parsedBuffer) {
 
     fprintf(stderr,"wav format\n");
 
-    BYTE* value = malloc(header.totallength * sizeof(BYTE));
+    // BYTE* value = malloc(header.totallength * sizeof(BYTE));
+
+    if (realloc(parsedBuffer, header.totallength * sizeof(BYTE)) == NULL) {
+      printf("error at reallocating\n");
+      exit(1);
+    }
 
     // This could fail, but meh.
-    fread(value, sizeof(BYTE), header.totallength, wav);
-
-    memcpy(parsedBuffer, value, header.totallength * sizeof(BYTE));
+    fread(parsedBuffer, sizeof(BYTE), header.totallength * sizeof(BYTE), wav);
 
     return header;
 }
