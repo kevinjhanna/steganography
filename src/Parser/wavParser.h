@@ -20,6 +20,7 @@ typedef struct wavHeader
     int16_t bytes_by_capture;
     int16_t bits_per_sample;
     char    data[4];        // should always contain "data"
+    int32_t dataLength;
     int32_t bytes_in_data;
 } wavHeader;
 

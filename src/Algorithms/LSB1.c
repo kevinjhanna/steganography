@@ -1,4 +1,6 @@
 #include "LSB1.h"
+#include "../Utilities/bitManipulation.h"
+#include "../Parser/wavParser.h"
 
 bool isLastBitFromBlock(int position, int sampleRate) {
   return ((position + 1) % sampleRate) == 0;
@@ -19,4 +21,56 @@ void hideLSB1(const unsigned char* carrier, const int sampleRate, const int carr
     }
     memcpy(output + i * sizeof(BYTE), byteToCopy, sizeof(BYTE));
   }
+}
+
+void extractLSB() {
+// void extractLSB(const unsigned char* carrier, const int sampleRate, const int carrierLength, unsigned char* output) {
+  BYTE* parsedBuffer = malloc(1);
+  wavHeader wav = parseWavHeader("Wavs/funT1.wav", parsedBuffer);
+
+  int i = 0;
+  int k = 0;
+
+  BYTE* output = malloc(wav.dataLength * sizeof(BYTE));
+
+  for (i = 0; i < 20; i++) {
+    if (i % 2 == 1) {
+      printf("original byte: ");
+      printByte(parsedBuffer[i]);
+      printf("\n");
+      BYTE currentByte = getBit(7, parsedBuffer[i]);
+      printf("current byte: ");
+      printByte(currentByte);
+      printf("\n");
+
+
+
+
+
+      // BYTE toReplace = setBits(LSB1, parsedBuffer[i], currentByte);
+      // printf("to replace: ");
+      // printByte(toReplace);
+      // printf("\n");
+      // memcpy(output + k, &toReplace, sizeof(BYTE));
+      // k++;
+    }
+  }
+
+  // for(int i = 1; i < 20; i++) {
+  //   printf("original message: ");
+  //   printByte(parsedBuffer[i]);
+  //   printf("\n");
+  // }
+  //
+  // for(int i = 1; i < 3; i++) {
+  //   printf("extracted: ");
+  //   printByte(output[i]);
+  //   printf("\n");
+  // }
+
+  // for (int i = 0; i < 10; i++) {
+  // 	printByte(parsedBuffer[i]);
+  // }
+
+
 }

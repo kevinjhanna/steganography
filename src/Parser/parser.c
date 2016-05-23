@@ -96,7 +96,7 @@ int parse(int argc, const char ** argv) {
  * @param  algorithm        Indicates the encryption algorithm
  */
 
-int parseWavFile(int argc, const char ** argv) {
+int parseInput(int argc, const char ** argv) {
     const char *extract = NULL;
     const char *out = NULL;
     const char *wavefile = NULL;

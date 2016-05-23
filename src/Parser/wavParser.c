@@ -9,7 +9,7 @@ int is_big_endian(void) {
     } bint = {0x01000000};
     return bint.c[0]==1;
 }
-
+//44 bytes?
 wavHeader parseWavHeader(char* filename, BYTE* parsedBuffer) {
     FILE *wav = fopen(filename,"rb");
     struct wavHeader header;
@@ -62,11 +62,12 @@ wavHeader parseWavHeader(char* filename, BYTE* parsedBuffer) {
     }
 
     fprintf(stderr,", channel %d\n", header.pcm);
-    fprintf(stderr,"size %d bytes\n", header.totallength);
+    fprintf(stderr,"size %d bytes\n of total file", header.totallength);
     fprintf(stderr,"freq %d\n", header.frequency );
     fprintf(stderr,"%d bytes per sec\n", header.bytes_per_second );
     fprintf(stderr,"%d bytes by capture\n", header.bytes_by_capture );
     fprintf(stderr,"%d bits per sample\n", header.bytes_by_capture );
+    fprintf(stderr,"size %d bytes\n of data", header.dataLength);
     fprintf(stderr,"\n" );
 
     if ( memcmp( header.data, "data", 4) != 0 ) {
@@ -78,13 +79,13 @@ wavHeader parseWavHeader(char* filename, BYTE* parsedBuffer) {
 
     // BYTE* value = malloc(header.totallength * sizeof(BYTE));
 
-    if (realloc(parsedBuffer, header.totallength * sizeof(BYTE)) == NULL) {
+    if (realloc(parsedBuffer, header.dataLength * sizeof(BYTE)) == NULL) {
       printf("error at reallocating\n");
       exit(1);
     }
 
     // This could fail, but meh.
-    fread(parsedBuffer, sizeof(BYTE), header.totallength * sizeof(BYTE), wav);
+    fread(parsedBuffer, sizeof(BYTE), header.dataLength * sizeof(BYTE), wav);
 
     return header;
 }
