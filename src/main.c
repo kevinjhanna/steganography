@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include <openssl/crypto.h>
 #include "Parser/parser.h"
 #include "Parser/wavParser.h"
 #include "Utilities/bitManipulation.h"

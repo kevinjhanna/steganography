@@ -1,7 +1,7 @@
 TARGET = stegowav
-LIBS = -l
+LIBS = -lm
 CC = gcc
-CFLAGS = -g 
+CFLAGS = -g -Wall
 
 .PHONY: default all clean
 
@@ -17,7 +17,7 @@ HEADERS = $(wildcard */*.h)
 .PRECIOUS: $(TARGET) $(OBJECTS)
 
 $(TARGET): $(OBJECTS)
-	$(CC) $(OBJECTS) $(LIBS) -o $@
+	$(CC) $(OBJECTS) -Wall $(LIBS) -o $@
 
 clean:
 	find . -type f -name '*.o' -delete
