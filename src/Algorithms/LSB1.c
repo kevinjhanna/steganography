@@ -27,7 +27,8 @@ void extractLSB() {
 // void extractLSB(const unsigned char* carrier, const int sampleRate, const int carrierLength, unsigned char* output) {
   BYTE* parsedBuffer = malloc(1);
   wavHeader wav = parseWavHeader("Wavs/funT1.wav", parsedBuffer);
-
+  printf("---------------------------------------\n");
+  
   int i = 0;
   int k = 0;
 
@@ -42,12 +43,8 @@ void extractLSB() {
       printf("current byte: ");
       printByte(currentByte);
       printf("\n");
-
-
-
-
-
-      // BYTE toReplace = setBits(LSB1, parsedBuffer[i], currentByte);
+      
+      BYTE toReplace = setBits(LSB1, parsedBuffer[i], currentByte);
       // printf("to replace: ");
       // printByte(toReplace);
       // printf("\n");

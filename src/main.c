@@ -6,6 +6,39 @@
 #include "Utilities/bitManipulation.h"
 #include "algorithms/LSB1.h"
 
+void testSetBits() {
+	
+	BYTE byte = 0b11101010;
+	printf("Test 1\n");
+	printf("El byte original: ");
+	printByte(byte);
+	printf("\n");
+
+	BYTE replacement = 0b00000001;
+	int position =3;
+	BYTE newbyte = setBit(position, byte, 0b00000001);
+	printf("El bit Numero %d de izquierda a derecha modificado con el valor de \n", position);
+	printByte(replacement);
+	printf("Da como resultado el bit modificado\n");
+	printByte(newbyte);
+	
+	printf("-----------------\n");
+	printf("Test 2\n");
+	printf("El byte original: ");
+	printByte(byte);
+	printf("\n");
+
+	BYTE replacement2 = 0b00000000;
+	int position2 = 0;
+	BYTE newbyte2 = setBit(position2, byte, replacement2);
+	printf("El bit Numero %d de izquierda a derecha modificado con el valor de \n", position2);
+	printByte(replacement2);
+	printf("Da como resultado el bit modificado\n");
+	printByte(newbyte2);
+
+}
+
+
 int main(int argc, const char **argv) {
 	// if(parseInput(argc, argv)) {
 	// 		printf("Correct parsing\n");
@@ -20,15 +53,9 @@ int main(int argc, const char **argv) {
 	// 	printByte(parsedBuffer[i]);
 	// }
 
-	BYTE byte = 0b11101010;
-	BYTE newByte = setBit(0, byte, 0b00000000);
-	printf("byte: ");
-	printByte(byte);
-	printf("\n");
-	printf("newByte: ");
-	printByte(newByte);
-	printf("\n");
+	//Test setBits
+	testSetBits();
 
-	// extractLSB();
+	//extractLSB();
 	return 0;
 }
