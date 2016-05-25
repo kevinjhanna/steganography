@@ -9,7 +9,7 @@ int encrypt(const unsigned char* pwd, EVP_CIPHER* cipher, const unsigned char* i
 	unsigned char *iv = malloc(sizeof(unsigned char) * EVP_CIPHER_iv_length(cipher));
 	int outl, templ;
 
-	*out = (unsigned char * ) malloc(MAX_ENCR_LENGTH * sizeof(BYTE));
+	*out = (unsigned char * ) malloc(MAX_ENCR_LENGTH * sizeof(unsigned char));
 	
 	//Key Generation. We don't need to use Salt
  	EVP_BytesToKey(cipher, EVP_md5(), NULL, pwd, strlen(pwd),1, key, iv); 
@@ -20,12 +20,12 @@ int encrypt(const unsigned char* pwd, EVP_CIPHER* cipher, const unsigned char* i
 
 	//Encription parameters
 	EVP_EncryptInit_ex(&ctx, cipher, NULL, key, iv);
-	EVP_EncryptUpdate(&ctx, out, &outl, in, strlen(in));
+	EVP_EncryptUpdate(&ctx, *out, &outl, in, strlen(in));
 	EVP_EncryptFinal(&ctx, *out + outl, &templ);
 	
+	*len = outl + templ;
 	//Cleaning context
 	EVP_CIPHER_CTX_cleanup(&ctx);
-	*len = outl + templ;
 	return EXIT_SUCCESS;
 }
 
