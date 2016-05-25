@@ -5,9 +5,7 @@
 #include <openssl/evp.h>
 #include <openssl/bio.h>
 
-#include "../Utilities/bitManipulation.h"
-
-#define MAX_ENCR_LENGTH 1024
+#define MAX_ENCR_LENGTH 1024*8
 #define SUCCESS 0
 #define FAILURE !SUCCESS
 
