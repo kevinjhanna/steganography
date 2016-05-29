@@ -21,7 +21,6 @@ typedef struct wavHeader
     int16_t bits_per_sample;
     char    data[4];        // should always contain "data"
     int32_t dataLength;
-    int32_t bytes_in_data;
 } wavHeader;
 
-wavHeader parseWavHeader(char* filename, BYTE* parsedBuffer);
+wavHeader parseWavHeader(char* filename, BYTE** parsedBuffer);

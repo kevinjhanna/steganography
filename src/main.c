@@ -7,7 +7,7 @@
 #include "algorithms/LSB1.h"
 
 void testSetBits() {
-	
+
 	BYTE byte = 0b11101010;
 	printf("Test 1\n");
 	printf("El byte original: ");
@@ -21,7 +21,7 @@ void testSetBits() {
 	printByte(replacement);
 	printf("Da como resultado el bit modificado\n");
 	printByte(newbyte);
-	
+
 	printf("-----------------\n");
 	printf("Test 2\n");
 	printf("El byte original: ");
@@ -53,9 +53,7 @@ int main(int argc, const char **argv) {
 	// 	printByte(parsedBuffer[i]);
 	// }
 
-	//Test setBits
-	testSetBits();
 
-	//extractLSB();
+	extractLSB();
 	return 0;
 }

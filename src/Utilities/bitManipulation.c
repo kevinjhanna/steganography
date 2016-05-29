@@ -12,7 +12,6 @@ BYTE setBit(int position, BYTE byte, BYTE replacement) {
     return byte & ~aux;
   } else {
     BYTE aux = replacement << (sizeof(BYTE) * 8 - 1 - position);
-    printByte((byte & ~aux) | aux);
     return (byte & ~aux) | aux;
   }
 }
@@ -26,4 +25,13 @@ void printByte(BYTE byte) {
     printf("%d", getBit(i, byte));
   }
   printf("\n");
+}
+
+void printStream(BYTE* bytes, int numberOfBytes) {
+  for (int j = 0; j < numberOfBytes; j++) {
+    for (int i = 0; i < 8; i++) {
+      printf("%d", getBit(i, bytes[j]));
+    }
+    printf("\n");
+  }
 }

@@ -1,16 +1,9 @@
 // http://yannesposito.com/Scratch/en/blog/2010-10-14-Fun-with-wav/
 
+#include "../Utilities/utilities.h"
 #include "wavParser.h"
 
-int is_big_endian(void) {
-    union {
-        uint32_t i;
-        char c[4];
-    } bint = {0x01000000};
-    return bint.c[0]==1;
-}
-//44 bytes?
-wavHeader parseWavHeader(char* filename, BYTE* parsedBuffer) {
+wavHeader parseWavHeader(char* filename, BYTE** parsedBuffer) {
     FILE *wav = fopen(filename,"rb");
     struct wavHeader header;
 
@@ -19,7 +12,7 @@ wavHeader parseWavHeader(char* filename, BYTE* parsedBuffer) {
         exit(1);
     }
 
-    // read header
+
     if ( fread(&header, sizeof(header),1,wav) < 1 ) {
         fprintf(stderr,"Can't read input file header %s\n", filename);
         exit(1);
@@ -27,7 +20,7 @@ wavHeader parseWavHeader(char* filename, BYTE* parsedBuffer) {
 
     // if wav file isn't the same endianness than the current environment
     // we quit
-    if ( is_big_endian() ) {
+    if ( isBigEndian() ) {
         if (   memcmp( header.id,"RIFX", 4) != 0 ) {
             fprintf(stderr,"ERROR: %s is not a big endian wav file\n", filename);
             exit(1);
@@ -49,7 +42,7 @@ wavHeader parseWavHeader(char* filename, BYTE* parsedBuffer) {
         fprintf(stderr,"\nERROR: not 16 bit wav format.");
         exit(1);
     }
-    fprintf(stderr,"format: %d bits", header.format);
+    fprintf(stderr,"Format: %d bits", header.format);
     if (header.format == 16) {
         fprintf(stderr,", PCM");
     } else {
@@ -60,32 +53,32 @@ wavHeader parseWavHeader(char* filename, BYTE* parsedBuffer) {
     } else {
         fprintf(stderr, " compressed" );
     }
-
-    fprintf(stderr,", channel %d\n", header.pcm);
-    fprintf(stderr,"size %d bytes\n of total file", header.totallength);
-    fprintf(stderr,"freq %d\n", header.frequency );
-    fprintf(stderr,"%d bytes per sec\n", header.bytes_per_second );
-    fprintf(stderr,"%d bytes by capture\n", header.bytes_by_capture );
-    fprintf(stderr,"%d bits per sample\n", header.bytes_by_capture );
-    fprintf(stderr,"size %d bytes\n of data", header.dataLength);
-    fprintf(stderr,"\n" );
+    fprintf(stderr, "\n" );
+    fprintf(stderr, "Header length: %d\n", sizeof(header));
+    fprintf(stderr, "Channel: %d\n", header.pcm);
+    fprintf(stderr, "Total file length: %d Bytes\n", header.totallength);
+    fprintf(stderr, "Frequency: %d\n", header.frequency);
+    fprintf(stderr, "Bytes per sec: %d\n", header.bytes_per_second);
+    fprintf(stderr, "Bytes by capture: %d\n", header.bytes_by_capture);
+    fprintf(stderr, "Bits per sample: %d\n", header.bytes_by_capture);
+    fprintf(stderr, "Data length: %d Bytes", header.dataLength);
+    fprintf(stderr, "\n" );
+    fprintf(stderr, "\n" );
 
     if ( memcmp( header.data, "data", 4) != 0 ) {
         fprintf(stderr,"ERROR: Prrroblem?\n");
         exit(1);
     }
 
-    fprintf(stderr,"wav format\n");
+    BYTE* buffer = calloc(header.dataLength, sizeof(BYTE));
 
-    // BYTE* value = malloc(header.totallength * sizeof(BYTE));
-
-    if (realloc(parsedBuffer, header.dataLength * sizeof(BYTE)) == NULL) {
-      printf("error at reallocating\n");
+    if (buffer == NULL) {
+      printf("error at alloc\n");
       exit(1);
     }
-
     // This could fail, but meh.
-    fread(parsedBuffer, sizeof(BYTE), header.dataLength * sizeof(BYTE), wav);
+    int read = fread(buffer, sizeof(BYTE), header.dataLength, wav);
 
+    *parsedBuffer = buffer;
     return header;
 }
