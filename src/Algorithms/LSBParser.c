@@ -15,18 +15,15 @@ static int extractRawMessage(LSB_TYPE LSBType, BYTE* wavData, BYTE* output, int 
 static void saveMessageToFile(char* fileName, BYTE* buffer);
 
 //TODO: Add parameters to this.
-void extractLSB() {
+void extractLSB(LSB_TYPE type, char* fileName, char* wavName) {
   BYTE* wavData;
   // As we don't know the number of bytes of wav yet (AKA: size of wavData), we pass a ** (or, equivalent, &wavData).
-  wavHeader wavHeader = parseWavHeader("Wavs/funT1.wav", &wavData);
+  wavHeader wavHeader = parseWavHeader(wavName, &wavData);
 
   BYTE* output = calloc(wavHeader.dataLength, sizeof(BYTE));
-  int fileSize = extractRawMessage(LSB1, wavData, output, wavHeader.dataLength);
+  int fileSize = extractRawMessage(type, wavData, output, wavHeader.dataLength);
 
-  //TODO: This should be received by parameter
-  char filename[50] = "./output";
-
-  saveMessageToFile(filename, output);
+  saveMessageToFile(fileName, output);
 
   free(wavData);
 }
@@ -58,7 +55,7 @@ static int extractRawMessage(LSB_TYPE LSBType, BYTE* wavData, BYTE* output, int 
 
 static void saveMessageToFile(char* fileName, BYTE* buffer) {
   int32_t length = parseLength(buffer);
-  BYTE * fileData = malloc(length * sizeof(BYTE));;
+  BYTE * fileData = malloc(length * sizeof(BYTE));
   char fileType[20];
   
   parseFileData(fileData, buffer + sizeof(length), length);

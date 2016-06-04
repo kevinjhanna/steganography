@@ -54,7 +54,7 @@ wavHeader parseWavHeader(char* filename, BYTE** parsedBuffer) {
         fprintf(stderr, " compressed" );
     }
     fprintf(stderr, "\n" );
-    fprintf(stderr, "Header length: %d\n", sizeof(header));
+    fprintf(stderr, "Header length: %lu\n", sizeof(header));
     fprintf(stderr, "Channel: %d\n", header.pcm);
     fprintf(stderr, "Total file length: %d Bytes\n", header.totallength);
     fprintf(stderr, "Frequency: %d\n", header.frequency);
