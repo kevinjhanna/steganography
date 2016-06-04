@@ -34,5 +34,7 @@ stegowav
 *.dSYM/
 *.su
 
+steganography.xcodeproj
+
 criptografia
 *.DS_Store

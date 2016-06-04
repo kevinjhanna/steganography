@@ -1,8 +1,5 @@
 typedef unsigned char BYTE;
 
-#define LSB1 0x01 // 0000 0000 0000 0001
-#define LSB4 0x0f // 0000 0000 0000 1111
-
 #define BIT_ONE 0b00000001
 #define BIT_ZERO 0b00000000
 
