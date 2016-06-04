@@ -5,7 +5,7 @@ BYTE getBit(int position, BYTE byte) {
   return (byte >> (sizeof(byte) * 8 - 1 - position)) & 0x01;
 }
 
-BYTE setBit(int position, BYTE byte, BYTE replacement) {
+BYTE replaceBit(int position, BYTE byte, BYTE replacement) {
   if(replacement % 2 == 0) {
     BYTE invertMask = 0b00000001;
     BYTE aux = invertMask << (sizeof(BYTE) * 8 - 1 - position);
@@ -16,8 +16,18 @@ BYTE setBit(int position, BYTE byte, BYTE replacement) {
   }
 }
 
-BYTE setBits(BYTE mask, BYTE byte, BYTE replacement) {
-  return (replacement & mask) | (byte & ~mask);
+BYTE replaceLastBit(int position, BYTE byte, BYTE replacement) {
+  return replaceBit(position, byte, getBit(7, replacement));
+}
+
+BYTE replaceBits(int from, int to, BYTE byte, BYTE replacement) {
+  BYTE result = byte;
+  
+  for (int i = from; i <= to; i++ ) {
+    result = replaceBit(i, result, getBit(i, replacement));
+  }
+  
+  return result;
 }
 
 void printByte(BYTE byte) {
@@ -33,5 +43,15 @@ void printStream(BYTE* bytes, int numberOfBytes) {
       printf("%d", getBit(i, bytes[j]));
     }
     printf("\n");
+  }
+}
+
+// It is meant to used AFTER setting a value.
+void advanceIterators(int* bitIterator, int* byteIterator) {
+  if (*bitIterator == 7) {
+    (*byteIterator)++;
+    *bitIterator = 0;
+  } else {
+    (*bitIterator)++;
   }
 }

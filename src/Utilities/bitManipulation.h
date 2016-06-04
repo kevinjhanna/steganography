@@ -6,10 +6,14 @@ typedef unsigned char BYTE;
 
 BYTE getBit(int position, BYTE value);
 
-BYTE setBit(int position, BYTE byte, BYTE replacement);
+BYTE replaceBit(int position, BYTE byte, BYTE replacement);
 
-BYTE setBits(BYTE mask, BYTE byte, BYTE replacement);
+BYTE replaceLastBit(int position, BYTE byte, BYTE replacement);
+
+BYTE replaceBits(int from, int to, BYTE byte, BYTE replacement);
 
 void printByte(BYTE byte);
 
 void printStream(BYTE* bytes, int numberOfBytes);
+
+void advanceIterators(int* bitIterator, int* byteIterator);

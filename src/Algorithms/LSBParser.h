@@ -1,8 +1,12 @@
 #include <stdlib.h>
+#include "string.h"
 
 #include "../Utilities/bitManipulation.h"
 #include "../Utilities/bool.h"
-#include "string.h"
+#include "../Parser/wavParser.h"
+#include "../Utilities/utilities.h"
+#include "./LSB1.h"
+#include "./LSB4.h"
 
 //TODO: receive parameters
 void extractLSB();
