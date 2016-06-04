@@ -1,11 +1,3 @@
-//
-//  LSB4.h
-//  steganography
-//
-//  Created by Francisco Depascuali on 6/4/16.
-//  Copyright © 2016 DepaStudios. All rights reserved.
-//
-
 #pragma once
 
 #include <stdio.h>
