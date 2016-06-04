@@ -1,6 +1,9 @@
-#include "bool.h"
+#pragma once
 
 #include <stdint.h> // for int16_t and int32_t
+
+#include "bool.h"
+
 
 bool isEven(int number);
 

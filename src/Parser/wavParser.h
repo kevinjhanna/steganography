@@ -1,5 +1,7 @@
 // http://yannesposito.com/Scratch/en/blog/2010-10-14-Fun-with-wav/
 
+#pragma once
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h> // for memcmp

@@ -1,5 +1,7 @@
 typedef unsigned char BYTE;
 
+#pragma once
+
 #define BIT_ONE 0b00000001
 #define BIT_ZERO 0b00000000
 

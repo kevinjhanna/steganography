@@ -6,13 +6,9 @@
 //  Copyright © 2016 DepaStudios. All rights reserved.
 //
 
-#ifndef LSB4_h
-#define LSB4_h
+#pragma once
 
 #include <stdio.h>
 #include "../Utilities/bitManipulation.h"
-
-
-#endif /* LSB4_h */
 
 void extractLSB4(int* bitIterator, int* byteIterator, BYTE from, BYTE* output);
