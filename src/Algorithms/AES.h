@@ -9,8 +9,12 @@
 #define SUCCESS 0
 #define FAILURE !SUCCESS
 
-int encrypt(const unsigned char* key, EVP_CIPHER* cipher, const unsigned char* in, unsigned char** out, int* len);
+int encrypt(const unsigned char* pwd, EVP_CIPHER* cipher, const unsigned char* in, int lenIn, unsigned char** out, int* lenOut);
+
+int decrypt(const unsigned char* pwd, EVP_CIPHER* cipher, const unsigned char* in, int lenIn, unsigned char** out, int* lenOut);
 
 int saveEncryptedData(unsigned char *out, int len,unsigned char *where);
+
+int obtenerEntrada(unsigned char *in, unsigned char *inB64);
 
 void mostrarKey(unsigned char key[]);

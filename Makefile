@@ -1,7 +1,8 @@
 TARGET = stegowav
 LIBS = -lm -lssl -lcrypto
 CC = gcc
-CFLAGS = -g -Wall
+CFLAGS = -Wall
+DFLAGS = -g
 
 .PHONY: default all clean
 
@@ -12,7 +13,7 @@ OBJECTS = $(shell find . -name '*.c')
 HEADERS = $(wildcard */*.h)
 
 %.o: %.c $(HEADERS)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@ $(DFLAGS)
 
 .PRECIOUS: $(TARGET) $(OBJECTS)
 
