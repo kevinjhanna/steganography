@@ -92,8 +92,8 @@ int parse(int argc, const char ** argv) {
     }
     //encrypt(password, cipher, in, &outData, &len);
 
-    base64Decode(const char *b64message, const size_t length, unsigned char **buffer)
-    inLen = obtenerEntrada(inCrypted, in);
+    //base64Decode(const char *b64message, const size_t length, unsigned char **buffer);
+    //inLen = obtenerEntrada(inCrypted, in);
     decrypt(password, cipher, inCrypted, inLen, &out, &len);
     // printf("outData:%p\n",(outData));
     printf("len:%s\n",out);

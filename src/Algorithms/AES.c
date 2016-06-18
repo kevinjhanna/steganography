@@ -45,7 +45,7 @@ int decrypt(const unsigned char* pwd, EVP_CIPHER* cipher, const unsigned char* i
 
 	// //Decrypr parameters
 	EVP_DecryptInit_ex(&ctx, cipher, NULL, key, iv);
-	EVP_DecryptUpdate(&ctx, *out, &outl, in/*encrypted+FILE_LENGTH_SIZE*/, strlen(in) /**((int*) encrypted)*/);
+	EVP_DecryptUpdate(&ctx, *out, &outl, in/*encrypted+FILE_LENGTH_SIZE*/, lenIn /**((int*) encrypted)*/);
 	EVP_DecryptFinal_ex(&ctx, *out + outl, &templ);
 	
 	*lenOut = outl + templ;
@@ -71,6 +71,17 @@ int saveEncryptedData(unsigned char *out, int len, unsigned char *where) {
     BIO_free_all(bio);
     return 0;
 }
+
+int obtenerEntrada(unsigned char *in, unsigned char
+ *inB64) 
+{ 
+    int inl, inl64; 
+    inl64 = strlen (inB64); 
+    inl = inl64 * 3 /4; 
+    fromBase64(in, inB64, inl64); 
+    inl = strlen(in); 
+    return inl; 
+} 
 
 int loadEncryptedData(unsigned char *out, int len, unsigned char *where) {
     BIO *b64;
