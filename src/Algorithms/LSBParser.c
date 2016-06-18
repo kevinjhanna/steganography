@@ -4,7 +4,7 @@ static int32_t parseLength(BYTE* buffer);
 
 static void parseFileData(BYTE* fileData, BYTE* buffer, int length);
 
-static void parseFileType(char* output, char* buffer);
+static void parseFileType(char* output, BYTE* buffer);
 
 static void getFileName(char* filename, char* fileType);
 
@@ -73,18 +73,14 @@ static int32_t parseLength(BYTE* buffer) {
   
   // This is an issue with endianness.
   // It depends on the endianess of whom is executing this program.
-  if (isLittleEndian()) {
-    return ntohl(length);
-  } else {
-    return htonl(length);
-  }
+  return ntohl(length);
 }
 
 static void parseFileData(BYTE* fileData, BYTE* buffer, int length) {
   memcpy(fileData, buffer, length * sizeof(BYTE));
 }
 
-static void parseFileType(char* output, char* buffer) {
+static void parseFileType(char* output, BYTE* buffer) {
   //TODO: validate if it starts with '.' (correct format).
   sprintf(output, "%s", buffer);
 }

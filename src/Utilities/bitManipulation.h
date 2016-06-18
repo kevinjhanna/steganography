@@ -5,6 +5,7 @@ typedef unsigned char BYTE;
 #define BIT_ONE 0b00000001
 #define BIT_ZERO 0b00000000
 
+#include <Math.h>
 
 BYTE getBit(int position, BYTE value);
 
@@ -19,3 +20,7 @@ void printByte(BYTE byte);
 void printStream(BYTE* bytes, int numberOfBytes);
 
 void advanceIterators(int* bitIterator, int* byteIterator);
+
+int32_t toCarrier(int number);
+
+int32_t fromCarrier(int number);

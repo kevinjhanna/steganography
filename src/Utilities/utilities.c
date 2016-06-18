@@ -20,3 +20,10 @@ bool isBigEndian() {
 bool isLittleEndian() {
   return !isBigEndian();
 }
+
+int getFileSize(char* fileName) {
+  struct stat st;
+  stat(fileName, &st);
+  
+  return (int)st.st_size;
+}

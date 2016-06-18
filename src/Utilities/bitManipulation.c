@@ -6,8 +6,8 @@ BYTE getBit(int position, BYTE byte) {
 }
 
 BYTE replaceBit(int position, BYTE byte, BYTE replacement) {
+  BYTE invertMask = 0b00000001;
   if(replacement % 2 == 0) {
-    BYTE invertMask = 0b00000001;
     BYTE aux = invertMask << (sizeof(BYTE) * 8 - 1 - position);
     return byte & ~aux;
   } else {
@@ -45,6 +45,15 @@ void printStream(BYTE* bytes, int numberOfBytes) {
     printf("\n");
   }
 }
+
+int32_t toCarrier(int number) {
+  return ntohl(number);
+}
+
+int32_t fromCarrier(int number) {
+  return ntohl(number);
+}
+
 
 // It is meant to used AFTER setting a value.
 void advanceIterators(int* bitIterator, int* byteIterator) {
