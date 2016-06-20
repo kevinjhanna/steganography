@@ -44,6 +44,9 @@ static int extractRawMessage(LSB_TYPE LSBType, BYTE* wavData, BYTE* output, int 
           break;
         case LSB4:
           extractLSB4(&bitIterator, &byteIterator, wavData[i], output);
+          break;
+        case LSBE:
+          extractLSBE(&bitIterator, &byteIterator, wavData[i], output);
       }
     }
   }
