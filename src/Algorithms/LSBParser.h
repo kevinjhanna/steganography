@@ -9,6 +9,7 @@
 #include "../Utilities/utilities.h"
 #include "./LSB1.h"
 #include "./LSB4.h"
+#include "./LSBE.h"
 
 typedef enum {LSB1, LSB4, LSBE} LSB_TYPE;
 
