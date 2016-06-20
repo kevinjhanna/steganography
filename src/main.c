@@ -42,6 +42,12 @@ void textExtractLSBE() {
   extractLSB(type, "test-LSBE", "Wavs/Examples/funTE.wav");
 }
 
+void testDecrypt() {
+  LSB_TYPE type = LSB1;
+  char* fileName = "test-decrypt";
+  extractLSB(type, fileName, "Wavs/GrupoIvo/labioscompartidos12.wav");
+  
+}
 
 int main(int argc, const char **argv) {
 	// if(parseInput(argc, argv)) {
