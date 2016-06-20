@@ -39,6 +39,13 @@ void testEmbedLSB4() {
   embedLSB(type, fileToHide, carrier, stegoWaveFile);
 }
 
+void textExtractLSBE() {
+  LSB_TYPE type = LSBE;
+  char fileName[20] = "test-LSBE";
+  extractLSB(type, fileName, "newWav-LSBE.wav");
+}
+
+
 int main(int argc, const char **argv) {
 	// if(parseInput(argc, argv)) {
 	// 		printf("Correct parsing\n");
@@ -56,6 +63,8 @@ int main(int argc, const char **argv) {
   
   testEmbedLSB4();
   textExtractLSB4();
+
+  testExtractLSBE();
   
 	return 0;
 }
