@@ -1,11 +1,18 @@
 #include "LSBE.h"
 
 void extractLSBE(int* bitIterator, int* byteIterator, BYTE from, BYTE* output) {
-  printf("heyhey\n");
   int i;
-  for (i = 4; i < 8; i++) {
-    output[*byteIterator] = replaceBit(*bitIterator, output[*byteIterator], getBit(i, from));
-    advanceIterators(bitIterator, byteIterator);
+  int shouldLSBE = 1;
+  
+  for (i = 0; i < 7; i++) {
+  	if (getBit(i, from) == 0) {
+  		shouldLSBE = 0;
+  	}
+  }
+  if(shouldLSBE){
+  	printf("este es from %02x\n",(int)from);	
+  	// output[*byteIterator] = replaceBit(*bitIterator, output[*byteIterator], getBit(i, from));
+   //  advanceIterators(bitIterator, byteIterator);	
   }
 }
 

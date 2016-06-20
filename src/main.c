@@ -42,7 +42,7 @@ void testEmbedLSB4() {
 void textExtractLSBE() {
   LSB_TYPE type = LSBE;
   char fileName[20] = "test-LSBE";
-  extractLSB(type, fileName, "newWav-LSBE.wav");
+  extractLSB(type, fileName, "Wavs/Examples/funTE.wav");
 }
 
 
