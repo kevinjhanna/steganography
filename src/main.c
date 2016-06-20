@@ -64,7 +64,7 @@ int main(int argc, const char **argv) {
   testEmbedLSB4();
   textExtractLSB4();
 
-  testExtractLSBE();
+  textExtractLSBE();
   
 	return 0;
 }

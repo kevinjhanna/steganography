@@ -2,7 +2,8 @@
 
 void extractLSBE(int* bitIterator, int* byteIterator, BYTE from, BYTE* output) {
   printf("heyhey\n");
-  for (int i = 4; i < 8; i++) {
+  int i;
+  for (i = 4; i < 8; i++) {
     output[*byteIterator] = replaceBit(*bitIterator, output[*byteIterator], getBit(i, from));
     advanceIterators(bitIterator, byteIterator);
   }

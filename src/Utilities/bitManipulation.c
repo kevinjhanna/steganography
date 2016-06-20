@@ -22,8 +22,8 @@ BYTE replaceLastBit(int position, BYTE byte, BYTE replacement) {
 
 BYTE replaceBits(int from, int to, BYTE byte, BYTE replacement) {
   BYTE result = byte;
-  
-  for (int i = from; i <= to; i++ ) {
+  int i;
+  for (i = from; i <= to; i++ ) {
     result = replaceBit(i, result, getBit(i, replacement));
   }
   
@@ -31,15 +31,17 @@ BYTE replaceBits(int from, int to, BYTE byte, BYTE replacement) {
 }
 
 void printByte(BYTE byte) {
-  for (int i = 0; i < 8; i++) {
+  int i;
+  for (i = 0; i < 8; i++) {
     printf("%d", getBit(i, byte));
   }
   printf("\n");
 }
 
 void printStream(BYTE* bytes, int numberOfBytes) {
-  for (int j = 0; j < numberOfBytes; j++) {
-    for (int i = 0; i < 8; i++) {
+  int j, i;
+  for (j = 0; j < numberOfBytes; j++) {
+    for (i = 0; i < 8; i++) {
       printf("%d", getBit(i, bytes[j]));
     }
     printf("\n");
