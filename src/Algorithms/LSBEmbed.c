@@ -25,6 +25,8 @@ void embedLSB(LSB_TYPE type, char* fileName, char* wavName, char* waveFileName) 
     case LSB4:
       embedLSB4(message, wavData, wavHeader.dataLength, length);
       break;
+    case LSBE:
+      embedLSBE(message, wavData, wavHeader.dataLength, length);
   }
   
   saveInFile(waveFileName, wavData, wavHeader);
@@ -33,7 +35,7 @@ void embedLSB(LSB_TYPE type, char* fileName, char* wavName, char* waveFileName) 
 
 static int loadMessageFromFile(BYTE** rawMessage, char* fileName) {
   FILE *fp = fopen(fileName, "r");
-  
+  printf("error abriendo %s\n",fileName);
   if (fp == NULL) {
     printf("Error opening file to read\n");
   }
