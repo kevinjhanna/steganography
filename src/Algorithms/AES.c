@@ -9,6 +9,8 @@ int encrypt(const unsigned char* pwd, EVP_CIPHER* cipher, const unsigned char* i
 	unsigned char *iv = malloc(sizeof(unsigned char) * EVP_CIPHER_iv_length(cipher));
 	int outl, templ;
 
+	printf("In:%s Len:%d\n", in, lenIn);
+	printf("Password:%s\n", pwd);
 	*out = (unsigned char * ) malloc(MAX_ENCR_LENGTH * sizeof(unsigned char));
 	
 	//Key Generation. We don't need to use Salt
@@ -66,6 +68,19 @@ int saveEncryptedData(unsigned char *out, int len, unsigned char *where) {
         return -1;
 
     bio = BIO_push(b64, bio);
+    BIO_write(bio, out, len);
+    BIO_flush(bio);
+    BIO_free_all(bio);
+    return 0;
+}
+
+int saveDecryptedData(unsigned char *out, int len, unsigned char *where) {
+    BIO *bio;
+    bio = BIO_new(BIO_s_file());
+    if(bio == NULL)
+        return -1;
+    if(!BIO_write_filename(bio, where))
+        return -1;
     BIO_write(bio, out, len);
     BIO_flush(bio);
     BIO_free_all(bio);

@@ -27,11 +27,13 @@ int main(int argc, const char **argv) {
 	// 	printByte(parsedBuffer[i]);
 	// }
 
-  	char fileNameLSB1[50] = "output-LSB1";
-  	char fileNameLSB4[50] = "output-LSB4";
+
+	//Uncomment this.
+  	//char fileNameLSB1[50] = "output-LSB1";
+  	//char fileNameLSB4[50] = "output-LSB4";
   
-	extractLSB(LSB1, fileNameLSB1, "Wavs/funT1.wav");
-  	extractLSB(LSB4, fileNameLSB4, "Wavs/funT4.wav");
+	//extractLSB(LSB1, fileNameLSB1, "Wavs/funT1.wav");
+  	//extractLSB(LSB4, fileNameLSB4, "Wavs/funT4.wav");
   
 	return 0;
 }

@@ -17,6 +17,8 @@ int saveEncryptedData(unsigned char *out, int len, unsigned char *where);
 
 int loadEncryptedData(unsigned char *out, int len, unsigned char *where);
 
+int saveDecryptedData(unsigned char *out, int len, unsigned char *where);
+
 //int obtenerEntrada(unsigned char *in, unsigned char *inB64);
 
 //void mostrarKey(unsigned char key[]);

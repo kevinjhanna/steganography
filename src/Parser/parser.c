@@ -17,6 +17,7 @@ static const char *const usage[] = {
 
 int parse(int argc, const char ** argv) {
 	int embed = 0;
+    int decryptFlag = 0;
     int len = 0;
     int inLen = 0;
     unsigned char *outData;
@@ -34,6 +35,7 @@ int parse(int argc, const char ** argv) {
         OPT_HELP(),
         OPT_GROUP("Opciones basicas"),
         OPT_BOOLEAN('e', "embed", &embed, "Indica que se va a ocultar la informacion."),
+        OPT_BOOLEAN('d', "decryptFlag", &decryptFlag, "Indica que se va a encriptar. Solo para pruebas. Borrar este parametro."),
         OPT_STRING('i', "in", &in, "Achivo de entrada."),
         OPT_STRING('o', "out", &out, "Archivo de salida."),
         OPT_STRING('w', "wavefile", &wavefile, "Archivo wave."),
@@ -90,14 +92,23 @@ int parse(int argc, const char ** argv) {
         printf("Algoritmo inválido.\n");
         return -1;
     }
-    //encrypt(password, cipher, in, &outData, &len);
 
     //base64Decode(const char *b64message, const size_t length, unsigned char **buffer);
     //inLen = obtenerEntrada(inCrypted, in);
-    decrypt(password, cipher, inCrypted, inLen, &out, &len);
+    if (decryptFlag) {
+        printf("Decrypt.\n");
+        inCrypted = malloc(128*sizeof(unsigned char));
+        loadEncryptedData(inCrypted, 128, in);
+        decrypt(password, cipher, inCrypted, 128, &outData, &len);
+        saveDecryptedData(outData, len, out);
+    } else {
+        printf("Encrypt.\n");
+        encrypt(password, cipher, in, strlen(in), &outData, &len);
+        saveEncryptedData(outData, len, out);
+    }
+
     // printf("outData:%p\n",(outData));
-    printf("len:%s\n",out);
-    //saveEncryptedData(outData, len, out);
+    printf("lenOut:%d\n",len);
 
     if (argc != 0) {
     	// Here we can use argc
@@ -208,22 +219,22 @@ int parseAlgorithm(const unsigned char* algorithm, const unsigned char* blockcip
     if (strstr(algorithm, "des") != NULL) {
         if (strstr(blockcipher, "ecb") != NULL) {
             *cipher = EVP_des_ecb();
-            printf("Selected Cipher EVP_des_ecb");
+            printf("Selected Cipher EVP_des_ecb\n");
             return 0;
         }
         if (strstr(blockcipher, "cfb") != NULL) {
             *cipher = EVP_des_cfb();
-            printf("Selected Cipher EVP_des_cfb");
+            printf("Selected Cipher EVP_des_cfb\n");
             return 0;
         }
         if (strstr(blockcipher, "ofb") != NULL) {
             *cipher = EVP_des_ofb();
-            printf("Selected Cipher EVP_des_ofb");
+            printf("Selected Cipher EVP_des_ofb\n");
             return 0;
         }
         if (strstr(blockcipher, "cbc") != NULL) {
             *cipher = EVP_des_cbc();
-            printf("Selected Cipher EVP_des_cbc");
+            printf("Selected Cipher EVP_des_cbc\n");
             return 0;
         }
     }
@@ -231,66 +242,66 @@ int parseAlgorithm(const unsigned char* algorithm, const unsigned char* blockcip
         if (strstr(algorithm, "128") != NULL) {
             if (strstr(blockcipher, "ecb") != NULL) {
                 *cipher = EVP_aes_128_ecb();
-                printf("Selected Cipher EVP_aes_128_ecb");
+                printf("Selected Cipher EVP_aes_128_ecb\n");
                 return 0;
             }
             if (strstr(blockcipher, "cfb") != NULL) {
                 *cipher = EVP_aes_128_cfb();
-                printf("Selected Cipher EVP_aes_128_cfb");
+                printf("Selected Cipher EVP_aes_128_cfb\n");
                 return 0;
             }
             if (strstr(blockcipher, "ofb") != NULL) {
                 *cipher = EVP_aes_128_ofb();
-                printf("Selected Cipher EVP_aes_128_ofb");
+                printf("Selected Cipher EVP_aes_128_ofb\n");
                 return 0;
             }
             if (strstr(blockcipher, "cbc") != NULL) {
                 *cipher = EVP_aes_128_cbc();
-                printf("Selected Cipher EVP_aes_128_cbc");
+                printf("Selected Cipher EVP_aes_128_cbc\n");
                 return 0;
             }
         }
         if (strstr(algorithm, "192") != NULL) {
             if (strstr(blockcipher, "ecb") != NULL) {
                 *cipher = EVP_aes_192_ecb();
-                printf("Selected Cipher EVP_aes_192_ecb");
+                printf("Selected Cipher EVP_aes_192_ecb\n");
                 return 0;
             }
             if (strstr(blockcipher, "cfb") != NULL) {
                 *cipher = EVP_aes_192_cfb();
-                printf("Selected Cipher EVP_aes_192_cfb");
+                printf("Selected Cipher EVP_aes_192_cfb\n");
                 return 0;
             }
             if (strstr(blockcipher, "ofb") != NULL) {
                 *cipher = EVP_aes_192_ofb();
-                printf("Selected Cipher EVP_aes_192_ofb");
+                printf("Selected Cipher EVP_aes_192_ofb\n");
                 return 0;
             }
             if (strstr(blockcipher, "cbc") != NULL) {
                 *cipher = EVP_aes_192_cbc();
-                printf("Selected Cipher EVP_aes_192_cbc");
+                printf("Selected Cipher EVP_aes_192_cbc\n");
                 return 0;
             }
         }
         if (strstr(algorithm, "256") != NULL) {
             if (strstr(blockcipher, "ecb") != NULL) {
                 *cipher = EVP_aes_256_ecb();
-                printf("Selected Cipher EVP_aes_256_ecb");
+                printf("Selected Cipher EVP_aes_256_ecb\n");
                 return 0;
             }
             if (strstr(blockcipher, "cfb") != NULL) {
                 *cipher = EVP_aes_256_cfb();
-                printf("Selected Cipher EVP_aes_256_cfb");
+                printf("Selected Cipher EVP_aes_256_cfb\n");
                 return 0;
             }
             if (strstr(blockcipher, "ofb") != NULL) {
                 *cipher = EVP_aes_256_ofb();
-                printf("Selected Cipher EVP_aes_256_ofb");
+                printf("Selected Cipher EVP_aes_256_ofb\n");
                 return 0;
             }
             if (strstr(blockcipher, "cbc") != NULL) {
                 *cipher = EVP_aes_256_cbc();
-                printf("Selected Cipher EVP_aes_256_cbc");
+                printf("Selected Cipher EVP_aes_256_cbc\n");
                 return 0;
             }
         }
