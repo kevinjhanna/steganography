@@ -1,0 +1,7 @@
+openssl enc –aes-128-cbc -in in.txt –K 30313233343536373839303132333435 –iv35343332313039383736353433323130 –e –a 
+
+#Decrypt file
+#-a: Base64 input
+#-d: Decrypt
+#-nosalt: No salt, everything we use don't have any salt.
+openssl enc -d -a -nosalt -aes-128-ecb -in crypted -out decrypted
