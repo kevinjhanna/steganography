@@ -4,7 +4,9 @@ static int loadMessageFromFile(BYTE** rawMessage, char* fileName);
 
 static char* getFileType(char *fileName);
 
-static void embedMessage(LSB_TYPE type, BYTE* rawMessage, BYTE* wavData, int wavDataLength, int length);
+int getFileSize(char* fileName);
+
+//static void embedMessage(LSB_TYPE type, BYTE* rawMessage, BYTE* wavData, int wavDataLength, int length);
 
 static void saveInFile(char* filename, BYTE* fileData, wavHeader wavHeader);
 
@@ -35,7 +37,6 @@ void embedLSB(LSB_TYPE type, char* fileName, char* wavName, char* waveFileName) 
 
 static int loadMessageFromFile(BYTE** rawMessage, char* fileName) {
   FILE *fp = fopen(fileName, "r");
-  printf("error abriendo %s\n",fileName);
   if (fp == NULL) {
     printf("Error opening file to read\n");
   }
@@ -55,8 +56,10 @@ static int loadMessageFromFile(BYTE** rawMessage, char* fileName) {
   
   //TODO: This could fail.
   int read = fread(buffer + sizeof(fileSize), sizeof(BYTE), fileSize, fp);
-  
-  strcpy(buffer + sizeof(fileSize) + sizeof(BYTE) * fileSize, fileType);
+  if(read == -1){
+    printf("Error while reading\n");
+  }
+  strcpy((char *)buffer + sizeof(fileSize) + sizeof(BYTE) * fileSize, fileType);
   
   *rawMessage = buffer;
   fclose(fp);

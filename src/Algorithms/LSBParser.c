@@ -21,8 +21,8 @@ void extractLSB(LSB_TYPE type, char* fileName, char* wavName) {
   wavHeader wavHeader = parseWavHeader(wavName, &wavData);
 
   BYTE* output = calloc(wavHeader.dataLength, sizeof(BYTE));
-  int fileSize = extractRawMessage(type, wavData, output, wavHeader.dataLength);
-
+  //int fileSize = extractRawMessage(type, wavData, output, wavHeader.dataLength);
+  extractRawMessage(type, wavData, output, wavHeader.dataLength);
   saveMessageToFile(fileName, output);
 
   free(wavData);
