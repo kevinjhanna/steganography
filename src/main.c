@@ -10,7 +10,7 @@
 void textExtractLSB1() {
   LSB_TYPE type = LSB1;
   char fileName[20] = "test-LSB1";
-  extractLSB(type, fileName, "Wavs/Aifargotpirc-2/bendita11a.wav");
+  extractLSB(type, fileName, "Wavs/bendita11.wav");
 }
 
 void testEmbedLSB1() {
@@ -42,7 +42,7 @@ void testEmbedLSB4() {
 void textExtractLSBE() {
   LSB_TYPE type = LSBE;
   char fileName[20] = "test-LSBE";
-  extractLSB(type, fileName, "Wavs/Examples/funTE.wav");
+  extractLSB(type, fileName, "Wavs/whateveroasis11b.wav");
 }
 
 
@@ -58,11 +58,11 @@ int main(int argc, const char **argv) {
 //  extractLSB(LSB1, fileNameLSB1, "Wavs/Examples/funT1.wav");
 //  extractLSB(LSB4, fileNameLSB4, "Wavs/Examples/funT4.wav");
 //
-//  textExtractLSB1();
-//  testEmbedLSB1();
-//  
-//  testEmbedLSB4();
-  textExtractLSB4();
+  //testEmbedLSB1();
+  //textExtractLSB1();
+  
+  //testEmbedLSB4();
+  //textExtractLSB4();
 
   textExtractLSBE();
   
