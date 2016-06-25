@@ -78,7 +78,9 @@ wavHeader parseWavHeader(char* filename, BYTE** parsedBuffer) {
     }
     // This could fail, but meh.
     int read = fread(buffer, sizeof(BYTE), header.dataLength, wav);
-
+    if(read == -1){
+        printf("Error while reading\n");
+    }
     *parsedBuffer = buffer;
     return header;
 }

@@ -38,3 +38,4 @@ steganography.xcodeproj
 
 criptografia
 *.DS_Store
+Wavs/*
