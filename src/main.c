@@ -28,7 +28,7 @@ void testEmbedLSB1() {
 
 void testDecryptLSB1() {
   LSB_TYPE type = LSB1;
-  extractEncryptedLSB(type, "videito.wmv", "Wavs/StegoFiles/whateveroasis11a.wav", "aplausos", EVP_aes_128_cfb());
+  extractEncryptedLSB(type, "videito", "Wavs/StegoFiles/whateveroasis11a.wav", "aplausos", EVP_aes_128_cfb());
 }
 
 void textExtractLSB4() {
