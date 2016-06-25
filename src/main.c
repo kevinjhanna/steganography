@@ -11,9 +11,7 @@
 
 void textExtractLSB1() {
   LSB_TYPE type = LSB1;
-  extractLSB(type, "test-LSB1-extraccion", "newWavlsb1.wav");
-
-//  extractLSB(type, "test-LSB1", "Wavs/Examples/funT1.wav");
+  extractLSB(type, "test-LSB1", "Examples/funT1.wav");
 }
 
 void testEmbedLSB1() {
@@ -28,7 +26,8 @@ void testEmbedLSB1() {
 
 void testDecryptLSB1() {
   LSB_TYPE type = LSB1;
-  extractEncryptedLSB(type, "videito", "Wavs/StegoFiles/whateveroasis11a.wav", "aplausos", EVP_aes_128_cfb());
+  //extractEncryptedLSB(type, "videito", "Wavs/StegoFiles/whateveroasis11a.wav", "aplausos", EVP_aes_128_cfb());
+  extractEncryptedLSB(type, "michelin", "Examples/funT1E.wav", "oculto", EVP_aes_192_cbc());
 }
 
 void textExtractLSB4() {
@@ -68,7 +67,6 @@ void testDecrypt() {
 }
 
 int main(int argc, const char **argv) {
-
   // if(parseInput(argc, argv)) {
   //    printf("Correct parsing\n");
   //    return 1;

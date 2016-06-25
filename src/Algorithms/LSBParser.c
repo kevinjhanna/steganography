@@ -35,13 +35,12 @@ void extractEncryptedLSB(LSB_TYPE type, char* fileName, char* wavName, char* pwd
 
   BYTE* output = calloc(wavHeader.dataLength, sizeof(BYTE));
   int fileSize = extractRawMessage(type, wavData, output, wavHeader.dataLength);
-
-  printf("File Size %d", fileSize);
+  int32_t cryptedLength = parseLength(output);
+  printf("File Size %d\n", cryptedLength);
   //Starting decrypt task
-  
   int lenOut;
   BYTE* decryptedOutput;
-  decrypt(pwd, cipher, output, fileSize, &decryptedOutput, &lenOut);
+  decrypt(pwd, cipher, output + sizeof(int), cryptedLength, &decryptedOutput, &lenOut);
   printf("lenOut:%d\n",lenOut);
   //printf("decryptedOutput:%s\n",decryptedOutput);
   saveMessageToFile(fileName, decryptedOutput);

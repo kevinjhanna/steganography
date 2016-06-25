@@ -18,6 +18,7 @@ int encrypt(const unsigned char* pwd, EVP_CIPHER* cipher, const unsigned char* i
 	EVP_EncryptInit_ex(&ctx, cipher, NULL, key, iv);
 	EVP_EncryptUpdate(&ctx, *out, &outl, in, lenIn);
 	EVP_EncryptFinal(&ctx, *out + outl, &templ);
+	
 
 	*lenOut = outl + templ;
 	//Cleaning context
@@ -50,9 +51,11 @@ int decrypt(const unsigned char* pwd, EVP_CIPHER* cipher, const unsigned char* i
 	if (EVP_DecryptUpdate(&ctx, *out, &outl, in, lenIn) == 0) {
 		printf("ERROR EVP_DecryptUpdate\n");
 	}
+	printf("Init encrypt length:%d\n",outl);
 	if (EVP_DecryptFinal_ex(&ctx, *out + outl, &templ) == 0) {
 		printf("ERROR EVP_DecryptFinal_ex\n");
 	}
+	printf("Padding encrypt length:%d\n",templ);
 	
 	*lenOut = outl + templ;
 	// Cleaning context
