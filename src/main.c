@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <math.h>
 
+#include <openssl/evp.h>
+
 #include "Parser/parser.h"
 #include "Parser/wavParser.h"
 #include "Utilities/bitManipulation.h"
@@ -9,7 +11,11 @@
 
 void textExtractLSB1() {
   LSB_TYPE type = LSB1;
+
   extractLSB(type, "test-LSB1-extraccion", "newWavlsb1.wav");
+
+//  extractLSB(type, "test-LSB1", "Wavs/Examples/funT1.wav");
+
 }
 
 void testEmbedLSB1() {
@@ -20,6 +26,14 @@ void testEmbedLSB1() {
   LSB_TYPE type = LSB1;
 
   embedLSB(type, fileToHide, carrier, stegoWaveFile);
+}
+
+void testDecryptLSB1() {
+  LSB_TYPE type = LSB1;
+  char* fileName = "funT1E";
+  char* wavName = "Wavs/Examples/funT1E.wav";
+  char* pwd = "oculto";
+  extractEncryptedLSB(type, fileName, wavName, pwd, EVP_aes_128_cbc());
 }
 
 void textExtractLSB4() {
@@ -70,22 +84,5 @@ int main(int argc, const char **argv) {
   //    return 1;
   // }
 
-
-//  char fileNameLSB1[50] = "output-LSB1";
-//  char fileNameLSB4[50] = "output-LSB4";
-//  extractLSB(LSB1, fileNameLSB1, "Wavs/Examples/funT1.wav");
-//  extractLSB(LSB4, fileNameLSB4, "Wavs/Examples/funT4.wav");
-//
-  // testEmbedLSB1();
-  // textExtractLSB1();
-  
-
-  //testEmbedLSB4();
-  //textExtractLSB4();
-
-  textExtractLSBE();
-  testEmbedLSBE();
-  textExtractLSBEspecial();
-  
   return 0;
 }
