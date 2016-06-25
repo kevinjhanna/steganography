@@ -6,7 +6,7 @@ static void parseFileData(BYTE* fileData, BYTE* buffer, int length);
 
 static void parseFileType(char* output, BYTE* buffer);
 
-static void getFileName(char* filename, char* fileType);
+static char* getFileName(char* filename, char* fileType);
 
 static void saveInFile(char* filename, BYTE* fileData, int length);
 
@@ -30,28 +30,20 @@ void extractLSB(LSB_TYPE type, char* fileName, char* wavName) {
 
 static int extractRawMessage(LSB_TYPE LSBType, BYTE* wavData, BYTE* output, int wavDataLength) {
   
-  int byteIterator = 0;
-  int bitIterator = 0;
-  int i;
-  for (i = 0; i < wavDataLength; i++) {
-    // TODO: Change this. It is assuming the size of the block is 16 bits. It actually depends on the bit rate.
-    // Remember that i refers to bytes.
-    if (isOdd(i)) {
-    
-      switch (LSBType) {
-        case LSB1:
-          extractLSB1(&bitIterator, &byteIterator, wavData[i], output);
-          break;
-        case LSB4:
-          extractLSB4(&bitIterator, &byteIterator, wavData[i], output);
-          break;
-        case LSBE:
-          extractLSBE(&bitIterator, &byteIterator, wavData[i], output);
-      }
-    }
-  }
+  int length;
   
-  return byteIterator;
+        switch (LSBType) {
+          case LSB1:
+            length = extractLSB1(output, wavData, wavDataLength);
+            break;
+          case LSB4:
+            length = extractLSB4(output, wavData, wavDataLength);
+            break;
+          case LSBE:
+            length = extractLSBE(output, wavData, wavDataLength);
+        }
+  
+  return length;
 }
 
 // Private
@@ -65,9 +57,9 @@ static void saveMessageToFile(char* fileName, BYTE* buffer) {
   
   parseFileType(fileType, buffer + sizeof(length) + length);
   
-  getFileName(fileName, fileType);
+  char* fileNameWithExtension = getFileName(fileName, fileType);
   
-  saveInFile(fileName, fileData, length);
+  saveInFile(fileNameWithExtension, fileData, length);
 }
 
 static int32_t parseLength(BYTE* buffer) {
@@ -88,8 +80,13 @@ static void parseFileType(char* output, BYTE* buffer) {
   sprintf(output, "%s", buffer);
 }
 
-static void getFileName(char* filename, char* fileType) {
-  strcat(filename, fileType);
+static char* getFileName(char* filename, char* fileType) {
+  char *concatenated = malloc(strlen(filename) + strlen(fileType) +1);//+1 for the zero-terminator
+  //in real code you would check for errors in malloc here
+  strcpy(concatenated, filename);
+  strcat(concatenated, fileType);
+  
+  return concatenated;
 }
 
 static void saveInFile(char* filename, BYTE* fileData, int length) {

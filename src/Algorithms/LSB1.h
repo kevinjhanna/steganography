@@ -3,6 +3,6 @@
 #include "../Utilities/bitManipulation.h"
 #include "../Utilities/utilities.h"
 
-void extractLSB1(int* bitIterator, int* byteIterator, BYTE from, BYTE* output);
+int extractLSB1(BYTE* wavData, BYTE* output, int wavDataLength);
 
 void embedLSB1(BYTE* rawMessage, BYTE* wavData, int wavDataLength, int length);
