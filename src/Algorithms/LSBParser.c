@@ -75,9 +75,9 @@ static void saveMessageToFile(char* fileName, BYTE* buffer) {
   int32_t length = parseLength(buffer);
   BYTE * fileData = malloc(length * sizeof(BYTE));
   char fileType[20];
-  
+  printf("Parsing file data.\n");
   parseFileData(fileData, buffer + sizeof(length), length);
-  
+  printf("Parsing file type.\n");
   parseFileType(fileType, buffer + sizeof(length) + length);
   
   char* fileNameWithExtension = getFileName(fileName, fileType);
