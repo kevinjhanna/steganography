@@ -35,13 +35,18 @@ void extractEncryptedLSB(LSB_TYPE type, char* fileName, char* wavName, char* pwd
 
   BYTE* output = calloc(wavHeader.dataLength, sizeof(BYTE));
   int fileSize = extractRawMessage(type, wavData, output, wavHeader.dataLength);
-  
+
+  printf("File Size %d", fileSize);
   //Starting decrypt task
+  
   int lenOut;
   BYTE* decryptedOutput;
   decrypt(pwd, cipher, output, fileSize, &decryptedOutput, &lenOut);
+  printf("lenOut:%d\n",lenOut);
+  //printf("decryptedOutput:%s\n",decryptedOutput);
+  saveMessageToFile(lenOut, decryptedOutput);
 
-  saveMessageToFile(fileName, output);
+  // saveMessageToFile(fileName, output);
 
   free(wavData);
 }
@@ -111,7 +116,7 @@ static void saveInFile(char* filename, BYTE* fileData, int length) {
   FILE *fp = fopen(filename, "w+");
   
   if (fp == NULL) {
-    printf("Error opening file to write\n");
+    printf("Error opening file to write %s\n",filename);
   }
   
   fwrite(fileData, sizeof(BYTE), length, fp);

@@ -11,11 +11,9 @@
 
 void textExtractLSB1() {
   LSB_TYPE type = LSB1;
-
   extractLSB(type, "test-LSB1-extraccion", "newWavlsb1.wav");
 
 //  extractLSB(type, "test-LSB1", "Wavs/Examples/funT1.wav");
-
 }
 
 void testEmbedLSB1() {
@@ -30,15 +28,12 @@ void testEmbedLSB1() {
 
 void testDecryptLSB1() {
   LSB_TYPE type = LSB1;
-  char* fileName = "funT1E";
-  char* wavName = "Wavs/Examples/funT1E.wav";
-  char* pwd = "oculto";
-  extractEncryptedLSB(type, fileName, wavName, pwd, EVP_aes_128_cbc());
+  extractEncryptedLSB(type, "videito.wmv", "Wavs/StegoFiles/whateveroasis11a.wav", "aplausos", EVP_aes_128_cfb());
 }
 
 void textExtractLSB4() {
   LSB_TYPE type = LSB4;
-  extractLSB(type, "test-LSB4", "Wavs/Examples/funT4.wav");
+  extractLSB(type, "test-LSB4", "Wavs/StegoFiles/bendita11a.wav");
 }
 
 void testEmbedLSB4() {
@@ -62,23 +57,18 @@ void textExtractLSBEspecial() {
 }
 
 void testEmbedLSBE() {
-  
-  char* fileToHide = "test-LSBE-2.jpg";
-  char* carrier = "Wavs/Examples/funT1.wav";
-  char* stegoWaveFile = "newWav-LSB4.wav";
   LSB_TYPE type = LSBE;
-  
-  embedLSB(type, fileToHide, carrier, stegoWaveFile);
+  extractLSB(type, "test-LSBE", "Wavs/StegoFiles/whateveroasis11b.wav");
 }
 
 void testDecrypt() {
   LSB_TYPE type = LSB1;
   char* fileName = "test-decrypt";
   extractLSB(type, fileName, "Wavs/GrupoIvo/labioscompartidos12.wav");
-  
 }
 
 int main(int argc, const char **argv) {
+
   // if(parseInput(argc, argv)) {
   //    printf("Correct parsing\n");
   //    return 1;
