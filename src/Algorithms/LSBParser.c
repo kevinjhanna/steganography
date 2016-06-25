@@ -37,7 +37,7 @@ static int extractRawMessage(LSB_TYPE LSBType, BYTE* wavData, BYTE* output, int 
     // TODO: Change this. It is assuming the size of the block is 16 bits. It actually depends on the bit rate.
     // Remember that i refers to bytes.
     if (isOdd(i)) {
-      
+    
       switch (LSBType) {
         case LSB1:
           extractLSB1(&bitIterator, &byteIterator, wavData[i], output);
