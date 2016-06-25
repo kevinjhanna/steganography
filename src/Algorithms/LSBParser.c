@@ -44,7 +44,7 @@ void extractEncryptedLSB(LSB_TYPE type, char* fileName, char* wavName, char* pwd
   decrypt(pwd, cipher, output, fileSize, &decryptedOutput, &lenOut);
   printf("lenOut:%d\n",lenOut);
   //printf("decryptedOutput:%s\n",decryptedOutput);
-  saveMessageToFile(lenOut, decryptedOutput);
+  saveMessageToFile(fileName, decryptedOutput);
 
   // saveMessageToFile(fileName, output);
 
@@ -73,6 +73,7 @@ static int extractRawMessage(LSB_TYPE LSBType, BYTE* wavData, BYTE* output, int 
 
 static void saveMessageToFile(char* fileName, BYTE* buffer) {
   int32_t length = parseLength(buffer);
+  printf("save length:%d\n",length);
   BYTE * fileData = malloc(length * sizeof(BYTE));
   char fileType[20];
   printf("Parsing file data.\n");

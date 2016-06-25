@@ -4,7 +4,7 @@
 
 #include <openssl/evp.h>
 
-#define MAX_ENCR_LENGTH 1024*1024*20
+#define MAX_ENCR_LENGTH 1024*1024*1024
 #define SUCCESS 0
 #define FAILURE !SUCCESS
 
