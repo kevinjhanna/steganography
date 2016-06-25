@@ -11,12 +11,7 @@
 
 void textExtractLSB1() {
   LSB_TYPE type = LSB1;
-<<<<<<< 3f55271972d9b0df875af5cdba642bda68bbc5b0
-  extractLSB(type, "test-LSB1", "Wavs/Examples/funT1.wav");
-=======
-  char fileName[20] = "test-LSB1";
-  extractLSB(type, fileName, "Wavs/Examples/funT1E.wav");
->>>>>>> +Extract encrypted LSB file for test.
+  extractLSB(type, "test-LSB1", "Wavs/examples/whateveroasis11a.wav");
 }
 
 void testEmbedLSB1() {
@@ -31,15 +26,12 @@ void testEmbedLSB1() {
 
 void testDecryptLSB1() {
   LSB_TYPE type = LSB1;
-  char* fileName = "funT1E";
-  char* wavName = "Wavs/Examples/funT1E.wav";
-  char* pwd = "oculto";
-  extractEncryptedLSB(type, fileName, wavName, pwd, EVP_aes_128_cbc());
+  extractEncryptedLSB(type, "videito.wmv", "Wavs/StegoFiles/whateveroasis11a.wav", "aplausos", EVP_aes_128_cfb());
 }
 
 void textExtractLSB4() {
   LSB_TYPE type = LSB4;
-  extractLSB(type, "test-LSB4", "Wavs/Examples/funT4.wav");
+  extractLSB(type, "test-LSB4", "Wavs/StegoFiles/bendita11a.wav");
 }
 
 void testEmbedLSB4() {
@@ -54,14 +46,13 @@ void testEmbedLSB4() {
 
 void textExtractLSBE() {
   LSB_TYPE type = LSBE;
-  extractLSB(type, "test-LSBE", "Wavs/Examples/funTE.wav");
+  extractLSB(type, "test-LSBE", "Wavs/StegoFiles/whateveroasis11b.wav");
 }
 
 void testDecrypt() {
   LSB_TYPE type = LSB1;
   char* fileName = "test-decrypt";
   extractLSB(type, fileName, "Wavs/GrupoIvo/labioscompartidos12.wav");
-  
 }
 
 int main(int argc, const char **argv) {
@@ -77,12 +68,12 @@ int main(int argc, const char **argv) {
 //  extractLSB(LSB4, fileNameLSB4, "Wavs/Examples/funT4.wav");
 //
   // testEmbedLSB1();
-  textExtractLSB1();
+  //textExtractLSB1();
+  testDecryptLSB1();
   
   // testEmbedLSB4();
   // textExtractLSB4();
   //testDecryptLSB1();
->>>>>>> +Extract encrypted LSB file for test.
   
 	return 0;
 }

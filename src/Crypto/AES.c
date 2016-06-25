@@ -30,6 +30,10 @@ int decrypt(const unsigned char* pwd, EVP_CIPHER* cipher, const unsigned char* i
 	unsigned char *iv = malloc(sizeof(unsigned char) * EVP_CIPHER_iv_length(cipher));
 	int outl, templ;
 
+	printf("Password %s\n",pwd);
+	printf("lenIn:%d\n",lenIn);
+	printf("lenOutInit:%d",*lenOut);
+
 	*out = (unsigned char * ) malloc(MAX_ENCR_LENGTH * sizeof(unsigned char));
 	
 	//Key Generation. We don't need to use Salt
@@ -40,9 +44,15 @@ int decrypt(const unsigned char* pwd, EVP_CIPHER* cipher, const unsigned char* i
 	EVP_CIPHER_CTX_init(&ctx);
 
 	// //Decrypr parameters
-	EVP_DecryptInit_ex(&ctx, cipher, NULL, key, iv);
-	EVP_DecryptUpdate(&ctx, *out, &outl, in, lenIn);
-	EVP_DecryptFinal_ex(&ctx, *out + outl, &templ);
+	if (EVP_DecryptInit_ex(&ctx, cipher, NULL, key, iv) == 0) {
+		printf("ERROR EVP_DecryptInit_ex\n");
+	}
+	if (EVP_DecryptUpdate(&ctx, *out, &outl, in, lenIn) == 0) {
+		printf("ERROR EVP_DecryptUpdate\n");
+	}
+	if (EVP_DecryptFinal_ex(&ctx, *out + outl, &templ) == 0) {
+		printf("ERROR EVP_DecryptFinal_ex\n");
+	}
 	
 	*lenOut = outl + templ;
 	// Cleaning context
