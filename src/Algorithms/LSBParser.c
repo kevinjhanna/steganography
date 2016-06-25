@@ -28,14 +28,19 @@ void extractLSB(LSB_TYPE type, char* fileName, char* wavName) {
   free(wavData);
 }
 
-void extractEncryptedLSB() {
+void extractEncryptedLSB(LSB_TYPE type, char* fileName, char* wavName, char* pwd, EVP_CIPHER* cipher) {
   BYTE* wavData;
   // As we don't know the number of bytes of wav yet (AKA: size of wavData), we pass a ** (or, equivalent, &wavData).
   wavHeader wavHeader = parseWavHeader(wavName, &wavData);
 
   BYTE* output = calloc(wavHeader.dataLength, sizeof(BYTE));
   int fileSize = extractRawMessage(type, wavData, output, wavHeader.dataLength);
-  int decrypt(const unsigned char* pwd, EVP_CIPHER* cipher, const unsigned char* in, int lenIn, unsigned char** out, int* lenOut);
+  
+  //Starting decrypt task
+  int lenOut;
+  BYTE* decryptedOutput;
+  decrypt(pwd, cipher, output, fileSize, &decryptedOutput, &lenOut);
+
   saveMessageToFile(fileName, output);
 
   free(wavData);
