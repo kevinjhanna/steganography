@@ -9,14 +9,14 @@
 
 void textExtractLSB1() {
   LSB_TYPE type = LSB1;
-  extractLSB(type, "test-LSB1", "Wavs/Examples/funT1.wav");
+  extractLSB(type, "test-LSB1-extraccion", "newWavlsb1.wav");
 }
 
 void testEmbedLSB1() {
   
-  char* fileToHide = "output-LSB1.jpg";
+  char* fileToHide = "test-LSBE-2.jpg";
   char* carrier = "Wavs/Examples/funT1.wav";
-  char* stegoWaveFile = "newWav.wav";
+  char* stegoWaveFile = "newWavlsb1.wav";
   LSB_TYPE type = LSB1;
 
   embedLSB(type, fileToHide, carrier, stegoWaveFile);
@@ -39,15 +39,30 @@ void testEmbedLSB4() {
 
 void textExtractLSBE() {
   LSB_TYPE type = LSBE;
-  extractLSB(type, "test-LSBE", "Wavs/Examples/funTE.wav");
+  extractLSB(type, "test-LSBE-2", "Wavs/Examples/funTE.wav");
+}
+
+void textExtractLSBEspecial() {
+  LSB_TYPE type = LSBE;
+  extractLSB(type, "test-LSBE-2-special", "newWav-LSB4.wav");
+}
+
+void testEmbedLSBE() {
+  
+  char* fileToHide = "test-LSBE-2.jpg";
+  char* carrier = "Wavs/Examples/funT1.wav";
+  char* stegoWaveFile = "newWav-LSB4.wav";
+  LSB_TYPE type = LSBE;
+  
+  embedLSB(type, fileToHide, carrier, stegoWaveFile);
 }
 
 
 int main(int argc, const char **argv) {
-	// if(parseInput(argc, argv)) {
-	// 		printf("Correct parsing\n");
-	// 		return 1;
-	// }
+  // if(parseInput(argc, argv)) {
+  //    printf("Correct parsing\n");
+  //    return 1;
+  // }
 
 
 //  char fileNameLSB1[50] = "output-LSB1";
@@ -55,13 +70,16 @@ int main(int argc, const char **argv) {
 //  extractLSB(LSB1, fileNameLSB1, "Wavs/Examples/funT1.wav");
 //  extractLSB(LSB4, fileNameLSB4, "Wavs/Examples/funT4.wav");
 //
-  //testEmbedLSB1();
-  textExtractLSB1();
+  // testEmbedLSB1();
+  // textExtractLSB1();
   
+
   //testEmbedLSB4();
-  textExtractLSB4();
+  //textExtractLSB4();
 
   textExtractLSBE();
+  testEmbedLSBE();
+  textExtractLSBEspecial();
   
-	return 0;
+  return 0;
 }
