@@ -26,9 +26,14 @@ void testEmbedLSB1() {
 
 void testDecryptLSB1() {
   LSB_TYPE type = LSB1;
-  extractEncryptedLSB(type, "videito", "Wavs/GrupoIvo/labioscompartidos12.wav", "ganador", EVP_aes_192_cfb());
-  //extractEncryptedLSB(type, "videito", "Wavs/StegoFiles/whateveroasis11a.wav", "aplausos", EVP_aes_128_cfb());
+  //extractEncryptedLSB(type, "videito", "Wavs/GrupoIvo/labioscompartidos12.wav", "ganador", EVP_aes_192_cfb());
   // extractEncryptedLSB(type, "michelin", "Examples/funT1E.wav", "oculto", EVP_aes_192_cbc());
+  printf("\n=========================================\n\n");
+  extractEncryptedLSB(type, "videito", "Wavs/StegoFiles/whateveroasis11a.wav", "aplausos", EVP_aes_128_cfb());
+}
+
+void testEncriptionLSBE() {
+  LSB_TYPE type = LSBE;
 }
 
 void textExtractLSB4() {

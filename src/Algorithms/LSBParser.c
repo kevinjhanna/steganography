@@ -40,10 +40,11 @@ void extractEncryptedLSB(LSB_TYPE type, char* fileName, char* wavName, char* pwd
   printf("cryptedLength %d\n", cryptedLength);
   //Starting decrypt task
 
-  int lenOut;
+  int lenOut = 0;
   BYTE* decryptedOutput;
   decrypt(pwd, cipher, output + sizeof(int32_t), cryptedLength, &decryptedOutput, &lenOut);
   printf("lenOut:%d\n",lenOut);
+  
   //printf("decryptedOutput:%s\n",decryptedOutput);
   saveMessageToFile(fileName, decryptedOutput);
 
