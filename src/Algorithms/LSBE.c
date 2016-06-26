@@ -33,5 +33,37 @@ int extractLSBE(BYTE* output, BYTE* carrier, int carrierLength) {
   return byteIterator;
 }
 
-void embedLSBE(BYTE* rawMessage, BYTE* wavData, int wavDataLength, int length){
+
+void embedLSBEFromByte(int* bitIterator, int* byteIterator, BYTE* actualWavData, BYTE * secretMessage){
+  int i;
+  bool shouldEmbed = true;
+  
+  for (i = 0; i < 7; i++) {
+    if (getBit(i, *actualWavData) == 0) {
+      shouldEmbed = false;
+      break;
+    }
+  }
+  
+  if(shouldEmbed){
+    *actualWavData = replaceLastBit(7, *actualWavData, getBit(*bitIterator, secretMessage[*byteIterator]));
+    advanceIterators(bitIterator, byteIterator);
+  }
+}
+
+int embedLSBE(BYTE* secretMessage, BYTE* wavData, int wavDataLength, int secretMessageLength) {
+  int byteIterator = 0;
+  int bitIterator = 0;
+  int i;
+
+  for (i = 0; i < wavDataLength; i++) {
+    if (byteIterator == secretMessageLength)
+      return byteIterator;
+    embedLSBEFromByte(&bitIterator, &byteIterator, wavData + i, secretMessage);
+  }
+  
+  if (byteIterator != secretMessageLength)
+    return -1; 
+
+  return byteIterator;
 }
