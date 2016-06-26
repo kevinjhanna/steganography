@@ -16,7 +16,7 @@ void testExtractLSB1() {
 void testExtractLSBEncrypted(LSB_TYPE type, const struct evp_cipher_st * cipher, char * fileName, char * outName) {
   char * out = malloc(50 * sizeof(char));
   *out = '\0';
-  strcat(out, "Wavs/testEncryptDecrypt/imageOut");
+  strcat(out, "Wavs/testEncryptDecrypt/imageOut/");
   strcat(out, outName);
 
   char* stegoWaveFile = malloc(50 * sizeof(char));
