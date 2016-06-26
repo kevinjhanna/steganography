@@ -3,8 +3,6 @@
 #include <stdlib.h>
 #include "argparse.h"
 
-// int parse(int argc, const char ** argv);
-
 /**
  * Parser function to take hidden file from .wav file
  * formato pedido: stegowav –extract –p “papanamericano.wav” -out “kitty” –steg LSBE –a des –m cbc -pass “oculto”
@@ -14,4 +12,4 @@
  * @param  steg             Indicates the desired algorithm
  * @param  algorithm        Indicates the encryption algorithm
  */
-int parse(int argc, const char ** argv);
+

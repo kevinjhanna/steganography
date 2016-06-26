@@ -71,6 +71,14 @@ static const char *const usage[] = {
     NULL,
 };
 
+/**
+ * formato: stegowav -embed –in “kitty.bmp” –p “panamericano.wav” -out “papanamericano.wav” –steg LSBE
+ * @param  in               Receives file to be input file
+ * @param  out              Receives the file name of the output
+ * @param  steg             Indicates the desired algorithm
+ * @param  algorithm        Indicates the encryption algorithm
+ */
+
 int main(int argc, const char **argv) {
    int embed = 0;
     const char *in = NULL;
@@ -92,8 +100,8 @@ int main(int argc, const char **argv) {
         OPT_STRING('w', "wavefile", &wavefile, "Archivo wave."),
         OPT_STRING('s', "steg", &steg, "Algoritmo de esteganografiado. (LSB1 | LSB4 | LSBE)"),
         OPT_GROUP("Opcionales"),
-        OPT_STRING('a', "algorithm", &algorithm, "Algoritmo de encriptacion. (AES-128 | AES-192 | AES-256 | DES)"),
-        OPT_STRING('m', "blockcipher", &blockcipher, "Algoritmo de cifrado de bloques. (ECB | CFB | OFB | CBC)"),
+        OPT_STRING('a', "algorithm", &algorithm, "Algoritmo de encriptacion. (aes128 | aes192 | aes256 | des)"),
+        OPT_STRING('m', "blockcipher", &blockcipher, "Algoritmo de cifrado de bloques. (ecb | cfb | ofb | cbc)"),
         OPT_STRING('p', "password", &password, "Contraseña."),
         OPT_BOOLEAN('t',"test", &testing, "Corre un par de pruebas"),
         OPT_END(),
@@ -113,7 +121,7 @@ int main(int argc, const char **argv) {
         return 0;
     }
 
-    if (embed != NULL && (in == NULL || wavefile == NULL || out == NULL || steg == NULL)) {
+    if (embed && (in == NULL || wavefile == NULL || out == NULL || steg == NULL)) {
         printf("Faltan argumentos para poder realizar el embeded\n");
         return -1;
     }
@@ -136,7 +144,7 @@ int main(int argc, const char **argv) {
       invalidArguments = 1;
     }
 
-    if (algorithm != NULL && (blockcipher == NULL || password == NULL) || (blockcipher != NULL && (algorithm == NULL || password == NULL)) || (password != NULL && (blockcipher == NULL || algorithm == NULL))) {
+    if ((algorithm != NULL && (blockcipher == NULL || password == NULL)) || (blockcipher != NULL && (algorithm == NULL || password == NULL)) || (password != NULL && (blockcipher == NULL || algorithm == NULL))) {
       printf("Debe ingresar algoritmo, cifrado de bloque y password, o ninguno\n");
       invalidArguments = 1;
     }
@@ -154,16 +162,8 @@ int main(int argc, const char **argv) {
             printf("argv[%d]: %s\n", i, *(argv + i));
         }
     }
-
-
-
-  printf("out %s\n", out);
-  printf("in %s\n", in);
-  printf("steg %s\n", steg);
-  printf("wavefile %s\n", wavefile);
   
-
-  if (embed != NULL) {
+  if (embed) {
     printf("\nEmbeding file, this may take some seconds, please wait...\n");
     LSB_TYPE type;
 
@@ -177,9 +177,11 @@ int main(int argc, const char **argv) {
 
     if (algorithm != NULL) {
       EVP_CIPHER* cipher;
-      if (parseAlgorithm(algorithm, blockcipher, &cipher)){
-        //should call embed with crypted
-      } 
+      if (parseAlgorithm((const unsigned char *)algorithm, (const unsigned char *)blockcipher, &cipher) == 0){
+        embedCryptedLSB(type, in, wavefile, out, password, cipher);
+      } else {
+        printf("Error while parsing algorithm\n");
+      }
     } else {
       embedLSB(type, in, wavefile, out);  
     }
@@ -192,10 +194,20 @@ int main(int argc, const char **argv) {
       type = LSBE;
     } else if ( strcmp(steg, "LSB1") == 0) {
       type = LSB1;
-    } else if ( strcmp(steg, "LSB4") == 0 ) {
+    } else {
       type = LSB4;
     }
-    extractLSB(type, out, wavefile);
+
+    if (algorithm != NULL) {
+      EVP_CIPHER* cipher;
+      if (parseAlgorithm((const unsigned char *)algorithm, (const unsigned char *)blockcipher, &cipher) == 0){
+        extractEncryptedLSB(type, out, wavefile, password, cipher);
+      } else {
+        printf("Error while parsing algorithm\n");
+      }
+    } else {
+      extractLSB(type, out, wavefile);
+    }
   }
 
   return 0;

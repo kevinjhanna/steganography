@@ -47,7 +47,7 @@ void embedCryptedLSB(LSB_TYPE type, char* fileName, char* wavName, char* waveFil
 
   BYTE* cryptedMessage;
   int cryptedLen = 0;
-  encrypt(pwd, cipher, message, length, &cryptedMessage, &cryptedLen);
+  encrypt((const unsigned char *)pwd, cipher, message, length, &cryptedMessage, &cryptedLen);
 
   BYTE* cryptedMessageWithLength = malloc(cryptedLen * sizeof(BYTE) + sizeof(int32_t));
   int aux = toCarrier(cryptedLen);

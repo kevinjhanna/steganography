@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stdio.h>
+
 #include "../Utilities/bitManipulation.h"
 #include "../Utilities/utilities.h"
 

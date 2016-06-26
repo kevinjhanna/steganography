@@ -16,15 +16,15 @@ static int extractRawMessage(LSB_TYPE LSBType, BYTE* wavData, BYTE* output, int 
 static void saveMessageToFile(char* fileName, BYTE* buffer);
 
 //TODO: Add parameters to this.
-void extractLSB(LSB_TYPE type, char* fileName, char* wavName) {
+void extractLSB(LSB_TYPE type, const char* fileName, const char* wavName) {
   BYTE* wavData;
   // As we don't know the number of bytes of wav yet (AKA: size of wavData), we pass a ** (or, equivalent, &wavData).
-  wavHeader wavHeader = parseWavHeader(wavName, &wavData);
+  wavHeader wavHeader = parseWavHeader((char *)wavName, &wavData);
 
   BYTE* output = calloc(wavHeader.dataLength, sizeof(BYTE));
   //int fileSize = extractRawMessage(type, wavData, output, wavHeader.dataLength);
   extractRawMessage(type, wavData, output, wavHeader.dataLength);
-  saveMessageToFile(fileName, output);
+  saveMessageToFile((char *)fileName, output);
 
   free(wavData);
 }
@@ -43,7 +43,7 @@ void extractEncryptedLSB(LSB_TYPE type, char* fileName, char* wavName, char* pwd
   //Starting decrypt task
   int lenOut = 0;
   BYTE* decryptedOutput;
-  decrypt(pwd, cipher, output + sizeof(int32_t), cryptedLength, &decryptedOutput, &lenOut);
+  decrypt((const unsigned char *)pwd, cipher, output + sizeof(int32_t), cryptedLength, &decryptedOutput, &lenOut);
   printf("lenOut:%d\n",lenOut);
 
   //printf("decryptedOutput:%s\n",decryptedOutput);
