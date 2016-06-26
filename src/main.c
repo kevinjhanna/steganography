@@ -34,6 +34,8 @@ void testDecryptLSB1() {
 
 void testEncriptionLSBE() {
   LSB_TYPE type = LSBE;
+  embedCryptedLSB(type, "michelin.jpg", "Wavs/Examples/funT4.wav", "wavencrypted.wav", "olakase", EVP_aes_256_cfb());
+  extractEncryptedLSB(type, "MICHELINLAPAPA", "wavencrypted.wav", "olakase", EVP_aes_256_cfb());
 }
 
 void textExtractLSB4() {
@@ -42,7 +44,6 @@ void textExtractLSB4() {
 }
 
 void testEmbedLSB4() {
-  
   char* fileToHide = "output-LSB4.jpg";
   char* carrier = "Wavs/Examples/funT4.wav";
   char* stegoWaveFile = "newWav-LSB4.wav";
@@ -77,7 +78,7 @@ int main(int argc, const char **argv) {
   //    printf("Correct parsing\n");
   //    return 1;
   // }
-
+  testEncriptionLSBE();
 
   return 0;
 
