@@ -58,6 +58,7 @@ int decrypt(const unsigned char* pwd, EVP_CIPHER* cipher, const unsigned char* i
 	printf("Padding encrypt length:%d\n",templ);
 	
 	*lenOut = outl + templ;
+	//out[*lenOut] = '\0';
 	// Cleaning context
 	EVP_CIPHER_CTX_cleanup(&ctx);
 	return EXIT_SUCCESS;
