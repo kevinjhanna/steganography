@@ -3,6 +3,8 @@ cd ../Wavs/solucionTpCatedra
 rm -f *.pdf
 rm -f *.wmv
 rm -f *.png
+rm -f *.txt
+rm -f *.zip
 cd ..
 cd testEmbedExtract/extracted
 rm -f *.png
