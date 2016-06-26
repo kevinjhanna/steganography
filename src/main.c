@@ -10,39 +10,62 @@
 
 void testExtractLSB1() {
   LSB_TYPE type = LSB1;
-  extractLSB(type, "Wavs/extracted/test-LSB1-extraccion", "Wavs/toEmbed/imageEmbeded/newWavLsb1.wav");
+  extractLSB(type, "Wavs/testEmbedExtract/extracted/test-LSB1-extraccion", "Wavs/testEmbedExtract/imageEmbeded/newWavLsb1.wav");
+}
+
+void testExtractLSBEncrypted(LSB_TYPE type, const struct evp_cipher_st * cipher, char * fileName, char * outName) {
+  char * out = malloc(50 * sizeof(char));
+  *out = '\0';
+  strcat(out, "Wavs/testEncryptDecrypt/imageOut");
+  strcat(out, outName);
+
+  char* stegoWaveFile = malloc(50 * sizeof(char));
+  *stegoWaveFile = '\0';
+  strcat(stegoWaveFile, "Wavs/testEncryptDecrypt/imageEmbeded/newWav");
+  strcat(stegoWaveFile, fileName);
+  extractEncryptedLSB(type, out, stegoWaveFile, "aifargotpirc", (EVP_CIPHER*)cipher);
+}
+
+void testEmbedLSBCrypted(LSB_TYPE type, const struct evp_cipher_st * cipher, char * fileName) {
+  char* fileToHide = "Wavs/testEmbedExtract/images/genericImageToHide.jpg";
+  char* carrier = "Wavs/testEmbedExtract/carrier.wav";
+  char* stegoWaveFile = malloc(50 * sizeof(char));
+  *stegoWaveFile = '\0';
+  strcat(stegoWaveFile, "Wavs/testEncryptDecrypt/imageEmbeded/newWav");
+  strcat(stegoWaveFile, fileName);
+  embedCryptedLSB(type, fileToHide, (EVP_CIPHER*) carrier, stegoWaveFile, "aifargotpirc", cipher);
 }
 
 void testEmbedLSB1() {
-  char* fileToHide = "Wavs/toEmbed/images/genericImageToHide.jpg";
-  char* carrier = "Wavs/toEmbed/carrier.wav";
-  char* stegoWaveFile = "Wavs/toEmbed/imageEmbeded/newWavLsb1.wav";
+  char* fileToHide = "Wavs/testEmbedExtract/images/genericImageToHide.jpg";
+  char* carrier = "Wavs/testEmbedExtract/carrier.wav";
+  char* stegoWaveFile = "Wavs/testEmbedExtract/imageEmbeded/newWavLsb1.wav";
   LSB_TYPE type = LSB1;
   embedLSB(type, fileToHide, carrier, stegoWaveFile);
 }
 
 void testExtractLSB4() {
   LSB_TYPE type = LSB4;
-  extractLSB(type, "Wavs/extracted/test-LSB4-extraccion", "Wavs/toEmbed/imageEmbeded/newWavLsb4.wav");
+  extractLSB(type, "Wavs/testEmbedExtract/extracted/test-LSB4-extraccion", "Wavs/testEmbedExtract/imageEmbeded/newWavLsb4.wav");
 }
 
 void testEmbedLSB4() {
-  char* fileToHide = "Wavs/toEmbed/images/genericImageToHide.jpg";
-  char* carrier = "Wavs/toEmbed/carrier.wav";
-  char* stegoWaveFile = "Wavs/toEmbed/imageEmbeded/newWavLsb4.wav";
+  char* fileToHide = "Wavs/testEmbedExtract/images/genericImageToHide.jpg";
+  char* carrier = "Wavs/testEmbedExtract/carrier.wav";
+  char* stegoWaveFile = "Wavs/testEmbedExtract/imageEmbeded/newWavLsb4.wav";
   LSB_TYPE type = LSB4;
   embedLSB(type, fileToHide, carrier, stegoWaveFile);
 }
 
 void testExtractLSBE() {
   LSB_TYPE type = LSBE;
-  extractLSB(type, "Wavs/extracted/test-LSBE-extraccion", "Wavs/toEmbed/imageEmbeded/newWavLsbe.wav");
+  extractLSB(type, "Wavs/testEmbedExtract/extracted/test-LSBE-extraccion", "Wavs/testEmbedExtract/imageEmbeded/newWavLsbe.wav");
 }
 
 void testEmbedLSBE() {
-  char* fileToHide = "Wavs/toEmbed/images/genericImageToHide.jpg";
-  char* carrier = "Wavs/toEmbed/carrier.wav";
-  char* stegoWaveFile = "Wavs/toEmbed/imageEmbeded/newWavLsbe.wav";
+  char* fileToHide = "Wavs/testEmbedExtract/images/genericImageToHide.jpg";
+  char* carrier = "Wavs/testEmbedExtract/carrier.wav";
+  char* stegoWaveFile = "Wavs/testEmbedExtract/imageEmbeded/newWavLsbe.wav";
   LSB_TYPE type = LSBE;
   embedLSB(type, fileToHide, carrier, stegoWaveFile);
 }
@@ -57,17 +80,37 @@ void runTests() {
 
   testEmbedLSBE();
   testExtractLSBE();
+  
+  testEmbedLSBCrypted(LSB1, EVP_aes_192_cfb(), "aes192-cfb-lsb1.wav");
+  testEmbedLSBCrypted(LSB4, EVP_aes_192_cfb(), "aes192-cfb-lsb4.wav");
+  testEmbedLSBCrypted(LSBE, EVP_aes_192_cfb(), "aes192-cfb-lsbe.wav");
+  
+  testEmbedLSBCrypted(LSB1, EVP_des_ecb(), "des-ecb-lsb1.wav");
+  testEmbedLSBCrypted(LSB4, EVP_des_ecb(), "des-ecb-lsb4.wav");
+  testEmbedLSBCrypted(LSBE, EVP_des_ecb(), "des-ecb-lsbe.wav");
+
+  testExtractLSBEncrypted(LSB1, EVP_aes_192_cfb(), "aes192-cfb-lsb1.wav", "image-aes192-cfb-lsb1");
+  testExtractLSBEncrypted(LSB4, EVP_aes_192_cfb(), "aes192-cfb-lsb4.wav", "image-aes192-cfb-lsb4");
+  testExtractLSBEncrypted(LSBE, EVP_aes_192_cfb(), "aes192-cfb-lsbe.wav", "image-aes192-cfb-lsbe");
+  
+  testExtractLSBEncrypted(LSB1, EVP_des_ecb(), "des-ecb-lsb1.wav", "image-des-ecb-lsb1");
+  testExtractLSBEncrypted(LSB4, EVP_des_ecb(), "des-ecb-lsb4.wav", "image-des-ecb-lsb4");
+  testExtractLSBEncrypted(LSBE, EVP_des_ecb(), "des-ecb-lsbe.wav", "image-des-ecb-lsbe");
+
   printf("Se acaban de correr los tests de LSB1 embed y extract\n");
   printf("Se acaban de correr los tests de LSB4 embed y extract\n");
   printf("Se acaban de correr los tests de LSBE embed y extract\n");
-  printf("A partir wav ubicado en directorio toEmbed se generaron portadores con imagen ubicados en imageEmbeded\n");
+  printf("A partir wav ubicado en directorio testEmbedExtract se generaron portadores con imagen ubicados en imageEmbeded\n");
   printf("Luego a cada uno de estos portadores se les extrajo su respectiva imagen bajo el directorio extracted\n");
   printf("Es decir se testeo el embed y extract sobre cada uno\n\n");
+  printf("Se corrieron tambien las mismas pruebas con cifrados aes 192 cfb y des + ecb para los 3 algoritmos\n");
+
+
 }
 
 static const char *const usage[] = {
-    "criptografy [options] [[--] args]",
-    "criptografy [options]",
+    "stegowav [options] [[--] args]",
+    "stegowav [options]",
     NULL,
 };
 
@@ -93,9 +136,10 @@ int main(int argc, const char **argv) {
 
     struct argparse_option options[] = {
         OPT_HELP(),
+        OPT_BOOLEAN('t',"test", &testing, "Corre pruebas de embeber y extraer"),
         OPT_GROUP("Opciones basicas"),
+        OPT_BOOLEAN('e', "embed", &embed, "Indica que se va a ocultar la informacion. En caso de no poner este flag se asume que se extrae"),
         OPT_STRING('i', "in", &in, "Achivo de entrada."),
-        OPT_BOOLEAN('e', "embed", &embed, "Indica que se va a ocultar la informacion."),
         OPT_STRING('o', "out", &out, "Archivo de salida."),
         OPT_STRING('w', "wavefile", &wavefile, "Archivo wave."),
         OPT_STRING('s', "steg", &steg, "Algoritmo de esteganografiado. (LSB1 | LSB4 | LSBE)"),
@@ -103,7 +147,6 @@ int main(int argc, const char **argv) {
         OPT_STRING('a', "algorithm", &algorithm, "Algoritmo de encriptacion. (aes128 | aes192 | aes256 | des)"),
         OPT_STRING('m', "blockcipher", &blockcipher, "Algoritmo de cifrado de bloques. (ecb | cfb | ofb | cbc)"),
         OPT_STRING('p', "password", &password, "Contraseña."),
-        OPT_BOOLEAN('t',"test", &testing, "Corre un par de pruebas"),
         OPT_END(),
     };
 
@@ -144,8 +187,17 @@ int main(int argc, const char **argv) {
       invalidArguments = 1;
     }
 
-    if ((algorithm != NULL && (blockcipher == NULL || password == NULL)) || (blockcipher != NULL && (algorithm == NULL || password == NULL)) || (password != NULL && (blockcipher == NULL || algorithm == NULL))) {
-      printf("Debe ingresar algoritmo, cifrado de bloque y password, o ninguno\n");
+    if ( password != NULL ) {
+      if (algorithm == NULL){
+        algorithm = "aes128";
+      }
+      if (blockcipher == NULL ) {
+        blockcipher = "cbc";
+      }
+    }
+    
+    if (algorithm != NULL && password == NULL) {
+      printf("Debe ingresar password\n");
       invalidArguments = 1;
     }
 

@@ -19,3 +19,7 @@ void extractLSB(LSB_TYPE type, const char* fileName, const char* wavName);
 //TODO: receive parameters
 void embedLSB();
 
+void extractEncryptedLSB();
+
+
+
