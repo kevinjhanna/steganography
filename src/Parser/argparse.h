@@ -129,5 +129,6 @@ void argparse_usage(struct argparse *self);
 #ifdef __cplusplus
 }
 #endif
+struct argparse argparse;
 
 #endif

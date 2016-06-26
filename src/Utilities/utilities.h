@@ -5,6 +5,8 @@
 #include "bool.h"
 #include <sys/stat.h>
 
+#define RUN_TESTS 7
+
 
 bool isEven(int number);
 
