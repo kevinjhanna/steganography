@@ -1,4 +1,5 @@
 #include "LSBParser.h"
+#include "../Crypto/crypto.h"
 
 static int32_t parseLength(BYTE* buffer);
 

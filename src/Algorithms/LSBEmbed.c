@@ -1,4 +1,5 @@
 #include "LSBEmbed.h"
+#include "../Crypto/crypto.h"
 
 static int loadMessageFromFile(BYTE** rawMessage, char* fileName);
 
