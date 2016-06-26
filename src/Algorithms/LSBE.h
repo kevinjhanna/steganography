@@ -5,4 +5,4 @@
 
 int extractLSBE(BYTE* output, BYTE* carrier, int carrierLength);
 
-void embedLSBE(BYTE* rawMessage, BYTE* wavData, int wavDataLength, int length);
+int embedLSBE(BYTE* rawMessage, BYTE* wavData, int wavDataLength, int length);

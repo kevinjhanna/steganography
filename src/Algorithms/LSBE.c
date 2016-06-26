@@ -39,7 +39,7 @@ void embedLSBEFromByte(int* bitIterator, int* byteIterator, BYTE* actualWavData,
   bool shouldEmbed = true;
   
   for (i = 0; i < 7; i++) {
-    if (getBit(i, actualWavData) == 0) {
+    if (getBit(i, *actualWavData) == 0) {
       //printf("should not %02x\n",actualWavData );
       shouldEmbed = false;
       break;
@@ -74,6 +74,7 @@ int embedLSBE(BYTE* secretMessage, BYTE* wavData, int wavDataLength, int secretM
     // TODO: Change this. It is assuming the size of the block is 16 bits. It actually depends on the bit rate.
     // Remember that i refers to bytes.
     //1865 secretMessageLength
+
       if (byteIterator == secretMessageLength)
           return byteIterator;
       embedLSBEFromByte(&bitIterator, &byteIterator, wavData + i, secretMessage);
