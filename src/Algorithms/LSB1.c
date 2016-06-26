@@ -31,4 +31,11 @@ void embedLSB1(BYTE* rawMessage, BYTE* wavData, int wavDataLength, int length) {
       advanceIterators(&bitIterator, &byteIterator);
     }
   }
+  if (byteIterator != length) {
+    printf("tamano wavDataLength %d \n", wavDataLength);
+    printf("tamano embebido %d \n", length);
+    printf("byte iter %d \n", byteIterator);
+    printf("No se pudo insertar el archivo entero\n");
+    return;
+  }
 }

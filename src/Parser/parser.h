@@ -1,5 +1,4 @@
 #pragma once
-#define RUN_TESTS 7
 #include <stdio.h>
 #include <stdlib.h>
 #include "argparse.h"
@@ -15,4 +14,4 @@
  * @param  steg             Indicates the desired algorithm
  * @param  algorithm        Indicates the encryption algorithm
  */
-int parseInput(int argc, const char ** argv);
+int parse(int argc, const char ** argv);
