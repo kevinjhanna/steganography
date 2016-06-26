@@ -14,8 +14,12 @@
 typedef enum {LSB1, LSB4, LSBE} LSB_TYPE;
 
 //TODO: receive parameters
-void extractLSB(LSB_TYPE type, char* fileName, char* wavName);
+void extractLSB(LSB_TYPE type, const char* fileName, const char* wavName);
 
 //TODO: receive parameters
 void embedLSB();
+
+void extractEncryptedLSB();
+
+
 

@@ -57,13 +57,17 @@ int embedLSBE(BYTE* secretMessage, BYTE* wavData, int wavDataLength, int secretM
   int i;
 
   for (i = 0; i < wavDataLength; i++) {
-    if (byteIterator == secretMessageLength)
+    if (byteIterator == secretMessageLength){
       return byteIterator;
+    }
+      
     embedLSBEFromByte(&bitIterator, &byteIterator, wavData + i, secretMessage);
   }
   
-  if (byteIterator != secretMessageLength)
+  if (byteIterator != secretMessageLength){
+    printf("No se pudo insertar el archivo debido al tamaño del input respecto del portador\n");
     return -1; 
-
+  }
+    
   return byteIterator;
 }

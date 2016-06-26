@@ -38,4 +38,8 @@ steganography.xcodeproj
 
 criptografia
 *.DS_Store
-Wavs/*
+Wavs/solucionTpCatedra/*
+Wavs/testEmbedExtract/imageEmbeded/*.wav
+Wavs/testEmbedExtract/extracted/*.jpg
+Wavs/testEncryptDecrypt/imageEmbeded/*.wav
+Wavs/testEncryptDecrypt/imageOut/*.jpg

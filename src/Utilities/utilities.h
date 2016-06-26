@@ -5,7 +5,6 @@
 #include "bool.h"
 #include <sys/stat.h>
 
-
 bool isEven(int number);
 
 bool isOdd(int number);

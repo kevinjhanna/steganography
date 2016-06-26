@@ -6,6 +6,7 @@ typedef unsigned char BYTE;
 #define BIT_ONE 0b00000001
 #define BIT_ZERO 0b00000000
 
+#include <netinet/in.h>
 #include <math.h>
 
 BYTE getBit(int position, BYTE value);
