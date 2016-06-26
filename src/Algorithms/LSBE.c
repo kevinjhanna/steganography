@@ -56,7 +56,6 @@ void embedLSBEFromByte(int* bitIterator, int* byteIterator, BYTE* actualWavData,
      printf("bitIterator %d\n",*bitIterator);
     advanceIterators(bitIterator, byteIterator);
   }
-
 }
 
 int embedLSBE(BYTE* secretMessage, BYTE* wavData, int wavDataLength, int secretMessageLength) {
