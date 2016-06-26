@@ -7,11 +7,8 @@
 #define MAX_ENCR_LENGTH 1024*1024*1024
 #define SUCCESS 0
 #define FAILURE !SUCCESS
-<<<<<<< HEAD
 #define NOSALT NULL
 #define DEFAULTENGINE NULL
-=======
->>>>>>> 29af3c42aa21f20359304172c5c92ee09650dead
 
 int encrypt(const unsigned char* pwd, EVP_CIPHER* cipher, const unsigned char* in, int lenIn, unsigned char** out, int* lenOut);
 

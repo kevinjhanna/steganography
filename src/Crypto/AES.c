@@ -8,22 +8,14 @@ int encrypt(const unsigned char* pwd, EVP_CIPHER* cipher, const unsigned char* i
 	*out = (unsigned char * ) malloc(MAX_ENCR_LENGTH * sizeof(unsigned char));
 	
 	//Key Generation. We don't need to use Salt
-<<<<<<< HEAD
  	EVP_BytesToKey(cipher, EVP_md5(), NOSALT, pwd, strlen(pwd),1, key, iv); 
-=======
- 	EVP_BytesToKey(cipher, EVP_md5(), NULL, pwd, strlen(pwd),1, key, iv); 
->>>>>>> 29af3c42aa21f20359304172c5c92ee09650dead
  	
 	//Context initialization
 	EVP_CIPHER_CTX ctx;
 	EVP_CIPHER_CTX_init(&ctx);
 
 	//Encription parameters
-<<<<<<< HEAD
 	EVP_EncryptInit_ex(&ctx, cipher, DEFAULTENGINE, key, iv);
-=======
-	EVP_EncryptInit_ex(&ctx, cipher, NULL, key, iv);
->>>>>>> 29af3c42aa21f20359304172c5c92ee09650dead
 	EVP_EncryptUpdate(&ctx, *out, &outl, in, lenIn);
 	EVP_EncryptFinal(&ctx, *out + outl, &templ);
 	
@@ -39,7 +31,6 @@ int decrypt(const unsigned char* pwd, EVP_CIPHER* cipher, const unsigned char* i
 	unsigned char *iv = malloc(sizeof(unsigned char) * EVP_CIPHER_iv_length(cipher));
 	int outl, templ;
 
-<<<<<<< HEAD
 	printf("Password:%s\n",pwd);
 	printf("lenIn:%d\n",lenIn);
 	printf("lenOutInit:%d\n",*lenOut);
@@ -50,27 +41,13 @@ int decrypt(const unsigned char* pwd, EVP_CIPHER* cipher, const unsigned char* i
 	
 	//Key Generation. We don't need to use Salt
  	EVP_BytesToKey(cipher, EVP_md5(), NOSALT, pwd, strlen(pwd),1, key, iv); 
-=======
-	printf("Password %s\n",pwd);
-	printf("lenIn:%d\n",lenIn);
-	printf("lenOutInit:%d",*lenOut);
-
-	*out = (unsigned char * ) malloc(MAX_ENCR_LENGTH * sizeof(unsigned char));
-	
-	//Key Generation. We don't need to use Salt
- 	EVP_BytesToKey(cipher, EVP_md5(), NULL, pwd, strlen(pwd),1, key, iv); 
->>>>>>> 29af3c42aa21f20359304172c5c92ee09650dead
  	
 	// //Context initialization
 	EVP_CIPHER_CTX ctx;
 	EVP_CIPHER_CTX_init(&ctx);
 
 	// //Decrypr parameters
-<<<<<<< HEAD
 	if (EVP_DecryptInit_ex(&ctx, cipher, DEFAULTENGINE, key, iv) == 0) {
-=======
-	if (EVP_DecryptInit_ex(&ctx, cipher, NULL, key, iv) == 0) {
->>>>>>> 29af3c42aa21f20359304172c5c92ee09650dead
 		printf("ERROR EVP_DecryptInit_ex\n");
 	}
 	if (EVP_DecryptUpdate(&ctx, *out, &outl, in, lenIn) == 0) {
@@ -83,10 +60,7 @@ int decrypt(const unsigned char* pwd, EVP_CIPHER* cipher, const unsigned char* i
 	printf("Padding encrypt length:%d\n",templ);
 	
 	*lenOut = outl + templ;
-<<<<<<< HEAD
-=======
-	//out[*lenOut] = '\0';
->>>>>>> 29af3c42aa21f20359304172c5c92ee09650dead
+
 	// Cleaning context
 	EVP_CIPHER_CTX_cleanup(&ctx);
 	return EXIT_SUCCESS;

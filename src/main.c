@@ -26,7 +26,6 @@ void testEmbedLSB1() {
 
 void testDecryptLSB1() {
   LSB_TYPE type = LSB1;
-<<<<<<< HEAD
   //extractEncryptedLSB(type, "videito", "Wavs/GrupoIvo/labioscompartidos12.wav", "ganador", EVP_aes_192_cfb());
   // extractEncryptedLSB(type, "michelin", "Examples/funT1E.wav", "oculto", EVP_aes_192_cbc());
   printf("\n=========================================\n\n");
@@ -37,11 +36,6 @@ void testEncriptionLSBE() {
   LSB_TYPE type = LSBE;
   embedCryptedLSB(type, "michelin.jpg", "Wavs/Examples/funT4.wav", "wavencrypted.wav", "olakase", EVP_aes_256_cfb());
   extractEncryptedLSB(type, "MICHELINLAPAPA", "wavencrypted.wav", "olakase", EVP_aes_256_cfb());
-=======
-  extractEncryptedLSB(type, "videito", "Wavs/GrupoIvo/labioscompartidos12.wav", "ganador", EVP_aes_192_cfb());
-  //extractEncryptedLSB(type, "videito", "Wavs/StegoFiles/whateveroasis11a.wav", "aplausos", EVP_aes_128_cfb());
-  // extractEncryptedLSB(type, "michelin", "Examples/funT1E.wav", "oculto", EVP_aes_192_cbc());
->>>>>>> 29af3c42aa21f20359304172c5c92ee09650dead
 }
 
 void textExtractLSB4() {
@@ -60,7 +54,6 @@ void testEmbedLSB4() {
 
 void textExtractLSBE() {
   LSB_TYPE type = LSBE;
-<<<<<<< HEAD
   extractLSB(type, "test-LSBE-2", "Wavs/Examples/funTE.wav");
 }
 
@@ -74,11 +67,6 @@ void testEmbedLSBE() {
   extractLSB(type, "test-LSBE", "Wavs/StegoFiles/whateveroasis11b.wav");
 }
 
-=======
-  extractLSB(type, "test-LSBE", "Wavs/StegoFiles/whateveroasis11b.wav");
-}
-
->>>>>>> 29af3c42aa21f20359304172c5c92ee09650dead
 void testDecrypt() {
   LSB_TYPE type = LSB1;
   char* fileName = "test-decrypt";
@@ -86,7 +74,7 @@ void testDecrypt() {
 }
 
 int main(int argc, const char **argv) {
-<<<<<<< HEAD
+
   // if(parseInput(argc, argv)) {
   //    printf("Correct parsing\n");
   //    return 1;
@@ -94,29 +82,4 @@ int main(int argc, const char **argv) {
   testEncriptionLSBE();
 
   return 0;
-
-=======
-	// if(parseInput(argc, argv)) {
-	// 		printf("Correct parsing\n");
-	// 		return 1;
-	// }
-
-
-//  char fileNameLSB1[50] = "output-LSB1";
-//  char fileNameLSB4[50] = "output-LSB4";
-//  extractLSB(LSB1, fileNameLSB1, "Wavs/Examples/funT1.wav");
-//  extractLSB(LSB4, fileNameLSB4, "Wavs/Examples/funT4.wav");
-//
-  // testEmbedLSB1();
-  //textExtractLSB1();
-  testDecryptLSB1();
-  //textExtractLSBE();
-  //textExtractLSB1();
-  
-  // testEmbedLSB4();
-  // textExtractLSB4();
-  //testDecryptLSB1();
-  
-	return 0;
->>>>>>> 29af3c42aa21f20359304172c5c92ee09650dead
 }
