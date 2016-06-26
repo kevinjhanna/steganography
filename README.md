@@ -3,11 +3,17 @@
 
 ##Integrantes
 Kevin Hirschowitz Kraus
+
 Jorge* Exequiel Gomez
+
 Francisco Depascuali
+
 Kevin Jack Hanna
 
-
+Mostrar todas las opciones para ingresar parámetros
+```
+./stegowav -h 
+```
 Extrae del archivo funTE el archivo oculto y lo guarda baja el nombre kitty usando el metodo LSBE
 ```
 ./stegowav -w "Wavs/Examples/funTE.wav" --out "/path/to/directory/filename" --steg LSBE
