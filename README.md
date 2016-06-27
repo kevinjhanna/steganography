@@ -3,11 +3,54 @@
 
 ##Integrantes
 Kevin Hirschowitz Kraus
+
 Jorge* Exequiel Gomez
+
 Francisco Depascuali
+
 Kevin Jack Hanna
 
+Para resolver el tp de forma automatizada
+```
+cd scripts
+./solveTP.sh
+```
 
+Para correr tests 
+```
+cd scripts
+./test.sh
+```
+
+Para borrar todos los archivos extraidos y generados
+```
+cd scripts 
+./clean.sh
+```
+
+Mostrar todas las opciones para ingresar parámetros
+```
+./stegowav -h 
+Esteganografía de archivos wav.
+
+
+    -h, --help                Ayuda acerca de parametros
+    -t, --test                Corre pruebas de embeber y extraer
+
+Opciones basicas
+    -e, --embed               Indica que se va a ocultar la informacion. En caso de no poner este flag se asume que se extrae
+    -i, --in  str             Achivo de entrada.
+    -o, --out  str            Archivo de salida.
+    -w, --wavefile  str       Archivo wave.
+    -s, --steg  str           Algoritmo de esteganografiado. (LSB1 | LSB4 | LSBE)
+
+Opcionales
+    -a, --algorithm  str      Algoritmo de encriptacion. (aes128 | aes192 | aes256 | des)
+    -m, --blockcipher  str    Algoritmo de cifrado de bloques. (ecb | cfb | ofb | cbc)
+    -p, --password  str       Contraseña.
+
+
+```
 Extrae del archivo funTE el archivo oculto y lo guarda baja el nombre kitty usando el metodo LSBE
 ```
 ./stegowav -w "Wavs/Examples/funTE.wav" --out "/path/to/directory/filename" --steg LSBE
