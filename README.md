@@ -10,6 +10,24 @@ Francisco Depascuali
 
 Kevin Jack Hanna
 
+Para resolver el tp de forma automatizada
+```
+cd scripts
+./solveTP.sh
+```
+
+Para correr tests 
+```
+cd scripts
+./test.sh
+```
+
+Para borrar todos los archivos extraidos y generados
+```
+cd scripts 
+./clean.sh
+```
+
 Mostrar todas las opciones para ingresar parámetros
 ```
 ./stegowav -h 
