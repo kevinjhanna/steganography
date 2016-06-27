@@ -14,12 +14,12 @@ void testExtractLSB1() {
 }
 
 void testExtractLSBEncrypted(LSB_TYPE type, const struct evp_cipher_st * cipher, char * fileName, char * outName) {
-  char * out = malloc(50 * sizeof(char));
+  char * out = calloc(50, sizeof(char));
   *out = '\0';
   strcat(out, "Wavs/testEncryptDecrypt/imageOut/");
   strcat(out, outName);
 
-  char* stegoWaveFile = malloc(50 * sizeof(char));
+  char* stegoWaveFile = calloc(60, sizeof(char));
   *stegoWaveFile = '\0';
   strcat(stegoWaveFile, "Wavs/testEncryptDecrypt/imageEmbeded/newWav");
   strcat(stegoWaveFile, fileName);
@@ -29,10 +29,11 @@ void testExtractLSBEncrypted(LSB_TYPE type, const struct evp_cipher_st * cipher,
 void testEmbedLSBCrypted(LSB_TYPE type, const struct evp_cipher_st * cipher, char * fileName) {
   char* fileToHide = "Wavs/testEmbedExtract/images/genericImageToHide.jpg";
   char* carrier = "Wavs/testEmbedExtract/carrier.wav";
-  char* stegoWaveFile = malloc(50 * sizeof(char));
+  char* stegoWaveFile = calloc(60, sizeof(char));
   *stegoWaveFile = '\0';
   strcat(stegoWaveFile, "Wavs/testEncryptDecrypt/imageEmbeded/newWav");
   strcat(stegoWaveFile, fileName);
+  printf("Running embed with file %s and carrier %s and stego %s ", fileToHide, carrier, stegoWaveFile);
   embedCryptedLSB(type, fileToHide, (EVP_CIPHER*) carrier, stegoWaveFile, "aifargotpirc", cipher);
 }
 
@@ -123,7 +124,8 @@ static const char *const usage[] = {
  */
 
 int main(int argc, const char **argv) {
-   int embed = 0;
+    int embed = 0;
+    int testing = 0;
     const char *in = NULL;
     const char *out = NULL;
     const char *wavefile = NULL;
@@ -131,7 +133,6 @@ int main(int argc, const char **argv) {
     const char *algorithm = NULL;
     const char *blockcipher = NULL;
     const char *password = NULL;
-    const char *testing = NULL;
 
 
     struct argparse_option options[] = {
@@ -157,8 +158,7 @@ int main(int argc, const char **argv) {
     argc = argparse_parse(&argparse, argc, argv);
 
     int invalidArguments = 0;
-
-    if (testing != NULL) {
+    if (testing) {
         printf("Se correran una serie de pruebas\n");
         runTests();
         return 0;

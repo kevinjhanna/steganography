@@ -1,7 +1,7 @@
 TARGET = stegowav
 LIBS = -lm -lssl -lcrypto
 CC = gcc
-CFLAGS = -g -Wall
+CFLAGS = -g -Wall -fno-stack-protector
 
 .PHONY: default all clean
 

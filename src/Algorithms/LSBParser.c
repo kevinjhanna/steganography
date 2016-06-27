@@ -76,7 +76,7 @@ static int extractRawMessage(LSB_TYPE LSBType, BYTE* wavData, BYTE* output, int 
 
 static void saveMessageToFile(char* fileName, BYTE* buffer) {
   int32_t length = parseLength(buffer);
-  BYTE * fileData = malloc(length * sizeof(BYTE));
+  BYTE * fileData = calloc(length, sizeof(BYTE));
   char fileType[20];
   
   parseFileData(fileData, buffer + sizeof(length), length);
@@ -108,7 +108,7 @@ static void parseFileType(char* output, BYTE* buffer) {
 
 static char* getFileName(char* filename, char* fileType) {
   char *concatenated = malloc(strlen(filename) + strlen(fileType) +1);//+1 for the zero-terminator
-  //in real code you would check for errors in malloc here
+  //in real code you would check for errors in calloc here
   strcpy(concatenated, filename);
   strcat(concatenated, fileType);
   

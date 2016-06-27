@@ -1,11 +1,11 @@
 #include "crypto.h"
 
 int encrypt(const unsigned char* pwd, EVP_CIPHER* cipher, const unsigned char* in, int lenIn, unsigned char** out, int* lenOut) {
- 	unsigned char *key = malloc(sizeof(unsigned char) * EVP_CIPHER_key_length(cipher));
-	unsigned char *iv = malloc(sizeof(unsigned char) * EVP_CIPHER_iv_length(cipher));
+ 	unsigned char *key = calloc(sizeof(unsigned char), EVP_CIPHER_key_length(cipher));
+	unsigned char *iv = calloc(sizeof(unsigned char), EVP_CIPHER_iv_length(cipher));
 	int outl, templ;
 	
-	*out = (unsigned char * ) malloc(MAX_ENCR_LENGTH * sizeof(unsigned char));
+	*out = (unsigned char * ) calloc(MAX_ENCR_LENGTH, sizeof(unsigned char));
 	
 	//Key Generation. We don't need to use Salt
  	EVP_BytesToKey(cipher, EVP_md5(), NOSALT,(const unsigned char *) pwd, strlen((const char *)pwd),1, key, iv); 
@@ -27,17 +27,17 @@ int encrypt(const unsigned char* pwd, EVP_CIPHER* cipher, const unsigned char* i
 }
 
 int decrypt(const unsigned char* pwd, EVP_CIPHER* cipher, const unsigned char* in, int lenIn, unsigned char** out, int* lenOut) {
- 	unsigned char *key = malloc(sizeof(unsigned char) * EVP_CIPHER_key_length(cipher));
-	unsigned char *iv = malloc(sizeof(unsigned char) * EVP_CIPHER_iv_length(cipher));
+ 	unsigned char *key = calloc(sizeof(unsigned char), EVP_CIPHER_key_length(cipher));
+	unsigned char *iv = calloc(sizeof(unsigned char), EVP_CIPHER_iv_length(cipher));
 	int outl, templ;
 
 	printf("Password:%s\n",pwd);
 	printf("lenIn:%d\n",lenIn);
 	printf("lenOutInit:%d\n",*lenOut);
 
-	*out = (unsigned char * ) malloc(MAX_ENCR_LENGTH * sizeof(unsigned char));
+	*out = (unsigned char * ) calloc(MAX_ENCR_LENGTH, sizeof(unsigned char));
 
-	// *out = (unsigned char * ) malloc(lenIn * sizeof(unsigned char) + 200 * sizeof(unsigned char));
+	// *out = (unsigned char * ) calloc(lenIn * sizeof(unsigned char) + 200 * sizeof(unsigned char));
 	
 	//Key Generation. We don't need to use Salt
  	EVP_BytesToKey(cipher, EVP_md5(), NOSALT, pwd, strlen((const char *)pwd),1, key, iv); 

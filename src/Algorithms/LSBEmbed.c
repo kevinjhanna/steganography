@@ -49,7 +49,7 @@ void embedCryptedLSB(LSB_TYPE type, char* fileName, char* wavName, char* waveFil
   int cryptedLen = 0;
   encrypt((const unsigned char *)pwd, cipher, message, length, &cryptedMessage, &cryptedLen);
 
-  BYTE* cryptedMessageWithLength = malloc(cryptedLen * sizeof(BYTE) + sizeof(int32_t));
+  BYTE* cryptedMessageWithLength = calloc(cryptedLen+4, sizeof(BYTE));
   int aux = toCarrier(cryptedLen);
   memcpy(cryptedMessageWithLength, &aux, sizeof(int32_t));
   memcpy(cryptedMessageWithLength+sizeof(int32_t), cryptedMessage, cryptedLen * sizeof(BYTE));
@@ -84,7 +84,7 @@ static int loadMessageFromFile(BYTE** rawMessage, char* fileName) {
   
   int fileSize = getFileSize(fileName);
   
-  BYTE* buffer = malloc(sizeof(fileSize) + sizeof(BYTE) * fileSize + fileTypeLength);
+  BYTE* buffer = malloc(sizeof(int) + sizeof(BYTE) * fileSize + fileTypeLength);
   
   int aux = toCarrier(fileSize);
   memcpy(buffer, &aux, sizeof(fileSize));
